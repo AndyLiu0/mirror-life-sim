@@ -1,0 +1,329 @@
+[gd_scene load_steps=26 format=3 uid="uid://btai8te2xtyin"]
+
+[ext_resource type="Script" uid="uid://w0q34q66ycte" path="res://ZoomButton.gd" id="1_1bvp3"]
+[ext_resource type="Script" uid="uid://cc6jkq2i5x53c" path="res://Camera.gd" id="1_88gup"]
+[ext_resource type="Script" uid="uid://b6fnej5k2qs6e" path="res://sim_camera_viewport.gd" id="2_h2yge"]
+[ext_resource type="Script" uid="uid://eqm4x41d2mly" path="res://simulation.gd" id="2_lquwl"]
+[ext_resource type="PackedScene" uid="uid://c10geolvbf5jo" path="res://Assets/ivstand.tscn" id="3_5vw27"]
+[ext_resource type="Script" uid="uid://d34ofjets2p46" path="res://sim_camera_viewport_container.gd" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://cx4cum0a3iig6" path="res://Assets/will_copy.tscn" id="3_kek77"]
+[ext_resource type="Script" uid="uid://dh6fob2gnhtnm" path="res://Assets/will_no_sleep.gd" id="4_kek77"]
+[ext_resource type="Script" uid="uid://bkvgj6v2rukwq" path="res://sim_camera.gd" id="5_7mycd"]
+[ext_resource type="Script" uid="uid://bjolhclvn0pp0" path="res://normal_bacteria_button.gd" id="9_4c57u"]
+[ext_resource type="Script" uid="uid://yfmkqrsno884" path="res://mirror_bacteria_button.gd" id="10_efxa6"]
+[ext_resource type="Script" uid="uid://di8kkqw3nmg5" path="res://vaccine_button.gd" id="11_dg77c"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_88gup"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7mycd"]
+size = Vector2(15, 15)
+
+[sub_resource type="Curve3D" id="Curve3D_4c57u"]
+_data = {
+"points": PackedVector3Array(0.00293559, 0.278367, -0.0710465, -0.00293559, -0.278367, 0.0710465, -0.971037, 1.28776, -0.733756, -0.0961741, -0.0101448, -0.180705, 0.0961741, 0.0101448, 0.180705, -0.729034, 0.524386, -0.382963, -0.108275, -0.0244243, 0.0172304, 0.108275, 0.0244243, -0.0172304, -0.49194, 0.669001, -0.0616519, 0, 0, 0, 0, 0, 0, -0.413165, 0.689137, -0.0655154),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dg77c"]
+albedo_color = Color(0.86, 0.677393, 0.4386, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_efxa6"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.392157)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0xm2m"]
+size = Vector3(25, 0, 17)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4c57u"]
+albedo_color = Color(0.94, 0.3572, 0.3572, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4c57u"]
+size = Vector2(240, 140)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4c57u"]
+bg_color = Color(0.34194, 0.82, 0.2788, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+
+[sub_resource type="LabelSettings" id="LabelSettings_4c57u"]
+line_spacing = 0.0
+font_size = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ycdy4"]
+bg_color = Color(0.75, 0.63625, 0.225, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_efxa6"]
+bg_color = Color(0.2, 0.48, 0, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dg77c"]
+bg_color = Color(0.427667, 0.19, 0.5, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+
+[node name="Main" type="Node3D"]
+
+[node name="Room" type="Node3D" parent="."]
+
+[node name="Floor" type="MeshInstance3D" parent="Room"]
+transform = Transform3D(10, 0, 0, 0, 2, 0, 0, 0, 10, 0, -1, 0)
+mesh = SubResource("BoxMesh_88gup")
+skeleton = NodePath("")
+
+[node name="Ceiling" type="MeshInstance3D" parent="Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+mesh = SubResource("PlaneMesh_7mycd")
+
+[node name="RoomCamera" type="Camera3D" parent="Room"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.5, 2.5, -0.3)
+script = ExtResource("1_88gup")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Room"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5, 0)
+light_energy = 5.0
+light_indirect_energy = 4.0
+light_volumetric_fog_energy = 2.0
+spot_range = 20.0
+spot_attenuation = 0.5
+spot_angle = 60.0
+spot_angle_attenuation = 0.482968
+
+[node name="ivstand" parent="Room" instance=ExtResource("3_5vw27")]
+transform = Transform3D(0.112503, 0, -0.278106, 0, 0.3, 0, 0.278106, 0, 0.112503, -1.13548, 0, -0.701552)
+
+[node name="WillCopy" parent="Room" instance=ExtResource("3_kek77")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+script = ExtResource("4_kek77")
+
+[node name="ivtube" type="Path3D" parent="Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00633046)
+curve = SubResource("Curve3D_4c57u")
+
+[node name="Inside" type="CSGPolygon3D" parent="Room/ivtube"]
+polygon = PackedVector2Array(-0.004, -0.004, -0.004, 0.004, 0.004, 0.004, 0.004, -0.004)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 0.15
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = SubResource("StandardMaterial3D_dg77c")
+
+[node name="outside" type="CSGPolygon3D" parent="Room/ivtube"]
+polygon = PackedVector2Array(-0.007, -0.007, -0.007, 0.007, 0.007, 0.007, 0.007, -0.007)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 0.15
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = SubResource("StandardMaterial3D_efxa6")
+
+[node name="Simulation" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, 0)
+script = ExtResource("2_lquwl")
+
+[node name="Plane" type="MeshInstance3D" parent="Simulation"]
+mesh = SubResource("BoxMesh_0xm2m")
+surface_material_override/0 = SubResource("StandardMaterial3D_4c57u")
+
+[node name="SimCameraLayer" type="CanvasLayer" parent="Simulation"]
+layer = 0
+
+[node name="SimCameraViewportContainer" type="SubViewportContainer" parent="Simulation/SimCameraLayer"]
+layout_direction = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 150.0
+offset_top = 130.0
+offset_right = 450.0
+offset_bottom = 330.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("3_h2yge")
+
+[node name="SimCameraViewport" type="SubViewport" parent="Simulation/SimCameraLayer/SimCameraViewportContainer"]
+handle_input_locally = false
+size = Vector2i(300, 200)
+render_target_update_mode = 4
+script = ExtResource("2_h2yge")
+
+[node name="SimCamera" type="Camera3D" parent="Simulation/SimCameraLayer/SimCameraViewportContainer/SimCameraViewport"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 30, 8, 0)
+fov = 50.0
+script = ExtResource("5_7mycd")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Simulation/SimCameraLayer/SimCameraViewportContainer/SimCameraViewport"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 30, 8.5, 0)
+light_energy = 2.0
+light_indirect_energy = 0.0
+shadow_blur = 0.0
+spot_range = 25.0
+spot_attenuation = -0.15
+spot_angle = 60.0
+spot_angle_attenuation = 0.00754638
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Simulation"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 20, 0)
+light_energy = 0.0
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+shadow_blur = 2.0
+directional_shadow_mode = 1
+directional_shadow_fade_start = 1.0
+directional_shadow_max_distance = 20.0
+directional_shadow_pancake_size = 60.0
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="AddButtons" type="Node2D" parent="UI"]
+
+[node name="AddNormalBacteria" type="Node2D" parent="UI/AddButtons"]
+
+[node name="MouseBox" type="Area2D" parent="UI/AddButtons/AddNormalBacteria"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UI/AddButtons/AddNormalBacteria/MouseBox"]
+position = Vector2(120, 50)
+shape = SubResource("RectangleShape2D_4c57u")
+
+[node name="Button" type="Button" parent="UI/AddButtons/AddNormalBacteria"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 230.0
+offset_bottom = 90.0
+mouse_filter = 1
+text = "Add Normal Bacteria
+
+"
+script = ExtResource("9_4c57u")
+metadata/_edit_use_anchors_ = true
+
+[node name="AddMirrorBacteria" type="Node2D" parent="UI/AddButtons"]
+position = Vector2(0, 90)
+
+[node name="MouseBox" type="Area2D" parent="UI/AddButtons/AddMirrorBacteria"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UI/AddButtons/AddMirrorBacteria/MouseBox"]
+position = Vector2(120, 50)
+shape = SubResource("RectangleShape2D_4c57u")
+
+[node name="Button" type="Button" parent="UI/AddButtons/AddMirrorBacteria"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 230.0
+offset_bottom = 90.0
+mouse_filter = 1
+text = "Add Mirror Bacteria
+
+"
+script = ExtResource("10_efxa6")
+
+[node name="AddVaccine" type="Node2D" parent="UI/AddButtons"]
+position = Vector2(0, 180)
+
+[node name="MouseBox" type="Area2D" parent="UI/AddButtons/AddVaccine"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UI/AddButtons/AddVaccine/MouseBox"]
+position = Vector2(120, 50)
+shape = SubResource("RectangleShape2D_4c57u")
+
+[node name="Button" type="Button" parent="UI/AddButtons/AddVaccine"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 230.0
+offset_bottom = 90.0
+mouse_filter = 1
+text = "Add Vaccine
+
+"
+script = ExtResource("11_dg77c")
+
+[node name="Stats" type="Node2D" parent="UI"]
+position = Vector2(0, 720)
+
+[node name="Health" type="Node2D" parent="UI/Stats"]
+position = Vector2(20, 0)
+
+[node name="Label" type="Label" parent="UI/Stats/Health"]
+offset_top = -80.0
+offset_right = 100.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_4c57u")
+text = "Health
+100%"
+label_settings = SubResource("LabelSettings_4c57u")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Immune" type="Node2D" parent="UI/Stats"]
+position = Vector2(130, 0)
+
+[node name="Label" type="Label" parent="UI/Stats/Immune"]
+offset_top = -80.0
+offset_right = 180.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_ycdy4")
+text = "Immune Activity
+0%"
+label_settings = SubResource("LabelSettings_4c57u")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Bacteria" type="Node2D" parent="UI/Stats"]
+position = Vector2(320, 0)
+
+[node name="Label" type="Label" parent="UI/Stats/Bacteria"]
+offset_top = -80.0
+offset_right = 100.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_efxa6")
+text = "Bacteria
+0 CFU"
+label_settings = SubResource("LabelSettings_4c57u")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MirrorBacteria" type="Node2D" parent="UI/Stats"]
+position = Vector2(430, 0)
+
+[node name="Label" type="Label" parent="UI/Stats/MirrorBacteria"]
+offset_top = -80.0
+offset_right = 180.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_dg77c")
+text = "Mirror Bacteria
+0 CFU"
+label_settings = SubResource("LabelSettings_4c57u")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BottomUI" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ZoomButton" type="Button" parent="BottomUI"]
+anchors_preset = -1
+anchor_left = -0.1
+anchor_top = -0.105
+anchor_right = 0.126042
+anchor_bottom = 0.128333
+offset_left = 730.0
+offset_top = 564.6
+offset_right = 809.0
+offset_bottom = 595.6
+toggle_mode = true
+script = ExtResource("1_1bvp3")
+metadata/_edit_use_anchors_ = true

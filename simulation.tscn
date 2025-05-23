@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdu11rshklhgl"]
+
+[ext_resource type="Script" uid="uid://n5ouglxlhq2k" path="res://SimZoomButton.gd" id="1_vmo2h"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_pv5co"]
+size = Vector3(10, 2, 10)
+
+[node name="Simulation" type="Node3D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_pv5co")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5, 0)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="UI"]
+offset_left = 1038.0
+offset_top = 589.0
+offset_right = 1117.0
+offset_bottom = 620.0
+text = "ZOOM OUT"
+script = ExtResource("1_vmo2h")
+metadata/_edit_use_anchors_ = true
+
+[node name="SpotLight3D" type="SpotLight3D" parent="UI/Button"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5, 0)
+light_energy = 10.0
+light_indirect_energy = 5.0
+spot_range = 10.0
+spot_attenuation = 0.0
+spot_angle = 70.0
+spot_angle_attenuation = 0.0647041

@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://c10geolvbf5jo"]
+
+[ext_resource type="PackedScene" uid="uid://mqm8h4l6l7t4" path="res://Assets/ivstand.glb" id="1_d0gs6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d0gs6"]
+albedo_color = Color(0.32, 0.32, 0.32, 1)
+metallic = 0.61
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4hidh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vr2oj"]
+
+[node name="ivstand" instance=ExtResource("1_d0gs6")]
+
+[node name="labassets1_fbx" parent="." index="0"]
+transform = Transform3D(0.462894, 0, 0.886414, 0, 1, 0, -0.886414, 0, 0.462894, 0, 0, 0)
+
+[node name="Cube_014" parent="labassets1_fbx/Cube_010" index="0"]
+transform = Transform3D(1, 2.98023e-08, -7.10543e-15, -2.98023e-08, 1, -2.84217e-14, 0, 1.42109e-14, 1, -108.416, 59.444, 1.52588e-05)
+surface_material_override/0 = SubResource("StandardMaterial3D_d0gs6")
+
+[node name="Cube_015" parent="labassets1_fbx/Cube_011" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 7.45058e-09, 1, -36.0435, 16.8813, 7.24599)
+surface_material_override/0 = SubResource("StandardMaterial3D_4hidh")
+
+[node name="Cube_0152" parent="labassets1_fbx/Cube_011" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 7.45058e-09, 1, -36.0435, 16.8813, 7.24599)
+surface_material_override/0 = SubResource("StandardMaterial3D_vr2oj")

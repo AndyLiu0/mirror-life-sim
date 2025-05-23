@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfip08225vpb0"]
+
+[ext_resource type="PackedScene" uid="uid://btai8te2xtyin" path="res://main.tscn" id="1_rpg24"]
+[ext_resource type="PackedScene" uid="uid://bdu11rshklhgl" path="res://simulation.tscn" id="2_3vi8l"]
+
+[node name="Base" type="Node3D"]
+
+[node name="Room" parent="." instance=ExtResource("1_rpg24")]
+
+[node name="Simulation" parent="." instance=ExtResource("2_3vi8l")]

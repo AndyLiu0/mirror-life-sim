@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://odatm2f0v4e6"]
+
+[ext_resource type="Script" uid="uid://bus0d6k0uqhro" path="res://nametag.gd" id="1_ny53j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ny53j"]
+bg_color = Color(0, 0, 0, 0.313726)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="LabelSettings" id="LabelSettings_pd2tr"]
+
+[node name="Nametag" type="Node3D"]
+script = ExtResource("1_ny53j")
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(0, 30)
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_ny53j")
+label_settings = SubResource("LabelSettings_pd2tr")
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmluix5ita3os"]
+
+[ext_resource type="PackedScene" uid="uid://db5cpfc03gk1x" path="res://Assets/will.glb" id="1_an1g6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_an1g6"]
+albedo_color = Color(0.81, 0.6939, 0.4617, 1)
+
+[node name="will" instance=ExtResource("1_an1g6")]
+
+[node name="labassets1_fbx" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.32038, 2.34206, 5.48682)
+
+[node name="Cube_001" parent="labassets1_fbx/Cube_002/Cube" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_an1g6")
+
+[node name="Cube_004" parent="labassets1_fbx/Cube_002/Cube_0013" index="0"]
+transform = Transform3D(0.8, -2.4197e-27, 1.12746e-21, 1.39589e-35, 1.1, -2.84217e-14, 3.5846e-29, 0, 1, 0, 0.354191, 0)
+
+[node name="Head" type="Node3D" parent="labassets1_fbx/Cube_002" index="8"]
+
+[node name="Cube_005" parent="labassets1_fbx" index="1"]
+transform = Transform3D(-2.32107e-08, 0.531, 1.74846e-08, 0, -2.32107e-08, 0.4, 0.531, 2.32107e-08, 7.64274e-16, 5.37096, 0, -9.60776)
+
+[node name="Cube_008" parent="labassets1_fbx/Cube_005" index="0"]
+transform = Transform3D(1.5, 0, 0, 0, 1.8, 0, 0, 0, 1.2, 0, 0, 0.4)
+
+[node name="Cube_0063" parent="labassets1_fbx" index="2"]
+transform = Transform3D(1.36295e-07, 1, 2.62268e-08, 0, -4.37114e-08, 0.6, 0.7, -1.94707e-07, -5.10655e-15, 5.37096, 0, -2.74444)
+
+[node name="Cube_009" parent="labassets1_fbx/Cube_0063" index="0"]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 0.7, 0, 0, 0)

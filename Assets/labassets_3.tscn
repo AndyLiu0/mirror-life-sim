@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://br8qug7aet2at"]
+
+[ext_resource type="PackedScene" uid="uid://iwhk1udd61kc" path="res://Assets/labassets3.fbx" id="1_qfdm7"]
+
+[node name="labassets3" instance=ExtResource("1_qfdm7")]

@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bp8wukukib0j1"]
+
+[ext_resource type="PackedScene" uid="uid://0a7vgcoumfrt" path="res://Assets/labassets2.fbx" id="1_gbsuy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ig3mo"]
+albedo_color = Color(0.121569, 0.478431, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_77vcr"]
+albedo_color = Color(0.28048, 0.48, 0.2016, 1)
+
+[node name="labassets2" instance=ExtResource("1_gbsuy")]
+
+[node name="MirrorBacteria" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_ig3mo")
+
+[node name="NormalBacteria" parent="." index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_77vcr")
