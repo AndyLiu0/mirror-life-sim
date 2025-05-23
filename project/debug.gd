@@ -29,7 +29,7 @@ func _input(event):
 			visible = false
 			get_viewport().set_input_as_handled()
 			
-		if event.is_action_pressed("ui_accept") and in_node.has_focus():
+		if event.is_action_pressed("ui_text_submit") and in_node.has_focus():
 			parse()
 			get_viewport().set_input_as_handled()
 			
@@ -40,6 +40,7 @@ func _input(event):
 		
 		if event.is_action_pressed("ui_debug_toggle_cont"):
 			cont_button.button_pressed = !cont_button.button_pressed
+			get_viewport().set_input_as_handled()
 
 func _process(delta):
 	if cont_button.button_pressed:

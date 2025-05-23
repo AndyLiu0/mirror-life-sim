@@ -357,9 +357,11 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="Out" type="Label" parent="UI/Debug"]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_w48qg")
+autowrap_mode = 2
 
 [node name="BottomUI" type="CanvasLayer" parent="."]
 layer = -1

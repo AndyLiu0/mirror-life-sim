@@ -92,8 +92,8 @@ func update_sim():
 	else:
 		mirror_label.text = "Mirror Bacteria\n%s e%s CFU" % [0.1 * int(10 * mirror_bacteria_num / 10**int(log(mirror_bacteria_num)/log(10))), int(log(mirror_bacteria_num)/log(10))]
 	
-	bacteria_level = int(1 * max(0, log(bacteria_num))/log(10)) - 3
-	mirror_bacteria_level = int(1 * max(0, log(mirror_bacteria_num))/log(10)) - 3
+	bacteria_level = max(0, int(1 * max(0, log(bacteria_num))/log(10)) - 3)
+	mirror_bacteria_level = max(0, int(1 * max(0, log(mirror_bacteria_num))/log(10)) - 3)
 	immune_cell_level = (int(immune_activation * 4) + 1) if will_health > 0 else 0
 	glucose_level = round(2 * min(sqrt(will_health) * 2, 1))
 	glycerol_level = round(2 * min(sqrt(will_health) * 2, 1))
