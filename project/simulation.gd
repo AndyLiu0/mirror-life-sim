@@ -1,3 +1,4 @@
+class_name Simulation
 extends Node3D
 
 var health_label: Label

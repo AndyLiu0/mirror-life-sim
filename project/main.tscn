@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://btai8te2xtyin"]
+[gd_scene load_steps=28 format=3 uid="uid://btai8te2xtyin"]
 
 [ext_resource type="Script" uid="uid://w0q34q66ycte" path="res://ZoomButton.gd" id="1_1bvp3"]
 [ext_resource type="Script" uid="uid://cc6jkq2i5x53c" path="res://Camera.gd" id="1_88gup"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://bjolhclvn0pp0" path="res://normal_bacteria_button.gd" id="9_4c57u"]
 [ext_resource type="Script" uid="uid://yfmkqrsno884" path="res://mirror_bacteria_button.gd" id="10_efxa6"]
 [ext_resource type="Script" uid="uid://di8kkqw3nmg5" path="res://vaccine_button.gd" id="11_dg77c"]
+[ext_resource type="Script" uid="uid://dmdxt0akyhfs5" path="res://debug.gd" id="12_ycdy4"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_88gup"]
 
@@ -64,6 +65,9 @@ corner_radius_top_right = 16
 bg_color = Color(0.427667, 0.19, 0.5, 1)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w48qg"]
+bg_color = Color(0.14, 0.14, 0.14, 0.470588)
 
 [node name="Main" type="Node3D"]
 
@@ -310,6 +314,28 @@ text = "Mirror Bacteria
 label_settings = SubResource("LabelSettings_4c57u")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Debug" type="VBoxContainer" parent="UI"]
+visible = false
+offset_left = 180.0
+offset_top = 270.0
+offset_right = 780.0
+offset_bottom = 450.0
+script = ExtResource("12_ycdy4")
+
+[node name="In" type="TextEdit" parent="UI/Debug"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Last" type="Label" parent="UI/Debug"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_w48qg")
+
+[node name="Out" type="Label" parent="UI/Debug"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_w48qg")
 
 [node name="BottomUI" type="CanvasLayer" parent="."]
 layer = -1
