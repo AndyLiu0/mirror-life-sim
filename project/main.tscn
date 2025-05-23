@@ -68,6 +68,10 @@ corner_radius_top_right = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w48qg"]
 bg_color = Color(0.14, 0.14, 0.14, 0.470588)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="Main" type="Node3D"]
 
@@ -327,10 +331,30 @@ script = ExtResource("12_ycdy4")
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Last" type="Label" parent="UI/Debug"]
+[node name="Middle" type="HBoxContainer" parent="UI/Debug"]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="Last" type="Label" parent="UI/Debug/Middle"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_w48qg")
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/Debug/Middle"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Debug/Middle/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Debug/Middle/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = " Continuous "
+
+[node name="CheckButton" type="CheckButton" parent="UI/Debug/Middle/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="Out" type="Label" parent="UI/Debug"]
 layout_mode = 2
