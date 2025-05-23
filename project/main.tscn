@@ -27,7 +27,7 @@ _data = {
 point_count = 4
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dg77c"]
-albedo_color = Color(0.86, 0.677393, 0.4386, 1)
+albedo_color = Color(0.4324, 0.806227, 0.92, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_efxa6"]
 transparency = 1
