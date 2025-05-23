@@ -1,6 +1,9 @@
 class_name MirrorBacteria
 extends CharacterBody3D
 
+func _get_class():
+	return "MirrorBacteria"
+
 static var scene: PackedScene = preload("res://MirrorBacteria.tscn")
 
 const MAX_SPEED = 5.0

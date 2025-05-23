@@ -1,6 +1,9 @@
 class_name Glycerol
 extends RigidBody3D
 
+func _get_class():
+	return "Glycerol"
+
 static var scene: PackedScene = preload("res://glycerol.tscn")
 
 var target: MirrorBacteria = null

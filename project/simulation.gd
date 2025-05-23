@@ -1,6 +1,9 @@
 class_name Simulation
 extends Node3D
 
+func _get_class():
+	return "Simulation"
+
 var health_label: Label
 var immune_label: Label
 var bacteria_label: Label

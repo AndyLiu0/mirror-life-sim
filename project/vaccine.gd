@@ -1,6 +1,9 @@
 class_name Vaccine
 extends CharacterBody3D
 
+func _get_class():
+	return "Vaccine"
+
 static var scene: PackedScene = preload("res://vaccine.tscn")
 var latch_pos = Vector3.ZERO
 var latch_r: float

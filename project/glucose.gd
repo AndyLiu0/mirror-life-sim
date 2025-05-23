@@ -1,6 +1,9 @@
 class_name Glucose
 extends RigidBody3D
 
+func _get_class():
+	return "Glucose"
+
 static var scene: PackedScene = preload("res://glucose.tscn")
 
 var target: Bacteria = null

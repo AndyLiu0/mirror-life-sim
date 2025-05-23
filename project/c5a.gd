@@ -1,6 +1,9 @@
 class_name C5a
 extends CharacterBody3D
 
+func _get_class():
+	return "C5a"
+
 static var scene: PackedScene = preload("res://c5a.tscn")
 
 var hitbox: Area3D
