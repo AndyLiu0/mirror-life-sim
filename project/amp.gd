@@ -1,6 +1,9 @@
 class_name Amp
 extends CharacterBody3D
 
+func _get_class():
+	return "Amp"
+
 static var scene: PackedScene = preload("res://amp.tscn")
 var timer = 0
 var mesh: MeshInstance3D

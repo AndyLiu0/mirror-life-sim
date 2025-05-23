@@ -322,16 +322,19 @@ vertical_alignment = 1
 [node name="Debug" type="VBoxContainer" parent="UI"]
 visible = false
 offset_left = 180.0
-offset_top = 270.0
+offset_top = 60.0
 offset_right = 780.0
-offset_bottom = 450.0
+offset_bottom = 248.0
+size_flags_vertical = 3
 script = ExtResource("12_ycdy4")
 
 [node name="In" type="TextEdit" parent="UI/Debug"]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_vertical = 3
 
 [node name="Middle" type="HBoxContainer" parent="UI/Debug"]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_vertical = 3
 
