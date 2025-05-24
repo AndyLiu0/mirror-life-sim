@@ -3,6 +3,7 @@ extends Button
 const padding = 10
 
 var viewport_container: SubViewportContainer
+var update_targets
 
 func _ready():
 	viewport_container = get_node("/root/Main/Simulation/SimCameraLayer/SimCameraViewportContainer")
@@ -20,7 +21,6 @@ func _toggled(toggled_on):
 		viewport_container.target_rect = viewport_container.RECT_FULL
 		self.size = get_viewport_rect().size
 		self.position = Vector2.ZERO
-		viewport_container.mouse_filter = Control.MOUSE_FILTER_STOP
 	else:
 		viewport_container.target_rect = viewport_container.RECT_MIN
 		viewport_container.mouse_filter = Control.MOUSE_FILTER_IGNORE

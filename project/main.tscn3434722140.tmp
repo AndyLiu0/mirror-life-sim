@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://btai8te2xtyin"]
+[gd_scene load_steps=29 format=3 uid="uid://btai8te2xtyin"]
 
 [ext_resource type="Script" uid="uid://w0q34q66ycte" path="res://ZoomButton.gd" id="1_1bvp3"]
 [ext_resource type="Script" uid="uid://cc6jkq2i5x53c" path="res://Camera.gd" id="1_88gup"]
@@ -10,12 +10,7 @@
 [ext_resource type="Script" uid="uid://dh6fob2gnhtnm" path="res://Assets/will_no_sleep.gd" id="4_kek77"]
 [ext_resource type="Script" uid="uid://b48ejci0jr0xy" path="res://health_label.gd" id="4_w48qg"]
 [ext_resource type="Script" uid="uid://bkvgj6v2rukwq" path="res://sim_camera.gd" id="5_7mycd"]
-[ext_resource type="Script" uid="uid://fg1vbl5yxtqy" path="res://immune_label.gd" id="5_vivmo"]
-[ext_resource type="Script" uid="uid://cnpsqepe2h0hr" path="res://vaccine_label.gd" id="6_2cqfq"]
-[ext_resource type="Script" uid="uid://3h0625mi6k8s" path="res://bacteria_label.gd" id="7_074og"]
-[ext_resource type="Script" uid="uid://c6tlrxf4vahv4" path="res://mirror_bacteria_label.gd" id="7_yaehf"]
 [ext_resource type="Script" uid="uid://bjolhclvn0pp0" path="res://normal_bacteria_button.gd" id="9_4c57u"]
-[ext_resource type="Script" uid="uid://ubm3bq3875lc" path="res://graph_space.gd" id="10_cegan"]
 [ext_resource type="Script" uid="uid://yfmkqrsno884" path="res://mirror_bacteria_button.gd" id="10_efxa6"]
 [ext_resource type="Script" uid="uid://di8kkqw3nmg5" path="res://vaccine_button.gd" id="11_dg77c"]
 [ext_resource type="Script" uid="uid://dmdxt0akyhfs5" path="res://debug.gd" id="12_ycdy4"]
@@ -26,7 +21,7 @@ size = Vector2(240, 140)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4c57u"]
 bg_color = Color(0.34194, 0.82, 0.2788, 1)
 corner_radius_top_left = 16
-corner_radius_bottom_left = 16
+corner_radius_top_right = 16
 
 [sub_resource type="LabelSettings" id="LabelSettings_4c57u"]
 line_spacing = 0.0
@@ -35,22 +30,17 @@ font_size = 20
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ycdy4"]
 bg_color = Color(0.75, 0.63625, 0.225, 1)
 corner_radius_top_left = 16
-corner_radius_bottom_left = 16
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vivmo"]
-bg_color = Color(0.1005, 0.38525, 0.67, 1)
-corner_radius_top_left = 16
-corner_radius_bottom_left = 16
+corner_radius_top_right = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_efxa6"]
 bg_color = Color(0.2, 0.48, 0, 1)
 corner_radius_top_left = 16
-corner_radius_bottom_left = 16
+corner_radius_top_right = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dg77c"]
 bg_color = Color(0.427667, 0.19, 0.5, 1)
 corner_radius_top_left = 16
-corner_radius_bottom_left = 16
+corner_radius_top_right = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w48qg"]
 bg_color = Color(0.14, 0.14, 0.14, 0.470588)
@@ -58,24 +48,6 @@ corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_074og"]
-bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-
-[sub_resource type="LabelSettings" id="LabelSettings_074og"]
-font_size = 24
-font_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_cegan"]
-font_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_82xsv"]
-font_size = 24
-font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_88gup"]
 
@@ -172,14 +144,15 @@ text = "Add Vaccine
 script = ExtResource("11_dg77c")
 
 [node name="Stats" type="Node2D" parent="UI"]
+position = Vector2(0, 720)
 
 [node name="Health" type="Node2D" parent="UI/Stats"]
-position = Vector2(860, 10)
+position = Vector2(20, 0)
 script = ExtResource("4_w48qg")
 
 [node name="Label" type="Label" parent="UI/Stats/Health"]
+offset_top = -80.0
 offset_right = 100.0
-offset_bottom = 80.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_4c57u")
 text = "Health
 100%"
@@ -188,42 +161,24 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Immune" type="Node2D" parent="UI/Stats"]
-position = Vector2(780, 100)
-script = ExtResource("5_vivmo")
+position = Vector2(130, 0)
 
 [node name="Label" type="Label" parent="UI/Stats/Immune"]
+offset_top = -80.0
 offset_right = 180.0
-offset_bottom = 80.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_ycdy4")
 text = "Immune Activity
 0%"
 label_settings = SubResource("LabelSettings_4c57u")
 horizontal_alignment = 1
 vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="Vaccine" type="Node2D" parent="UI/Stats"]
-position = Vector2(860, 190)
-script = ExtResource("6_2cqfq")
-
-[node name="Label" type="Label" parent="UI/Stats/Vaccine"]
-offset_right = 100.0
-offset_bottom = 80.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_vivmo")
-text = "Vaccine
-0%"
-label_settings = SubResource("LabelSettings_4c57u")
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
 
 [node name="Bacteria" type="Node2D" parent="UI/Stats"]
-position = Vector2(820, 280)
-script = ExtResource("7_074og")
+position = Vector2(320, 0)
 
 [node name="Label" type="Label" parent="UI/Stats/Bacteria"]
-offset_right = 140.0
-offset_bottom = 80.0
+offset_top = -80.0
+offset_right = 100.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_efxa6")
 text = "Bacteria
 0 CFU"
@@ -232,12 +187,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MirrorBacteria" type="Node2D" parent="UI/Stats"]
-position = Vector2(780, 370)
-script = ExtResource("7_yaehf")
+position = Vector2(430, 0)
 
 [node name="Label" type="Label" parent="UI/Stats/MirrorBacteria"]
+offset_top = -80.0
 offset_right = 180.0
-offset_bottom = 80.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_dg77c")
 text = "Mirror Bacteria
 0 CFU"
@@ -291,108 +245,6 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_w48qg")
 autowrap_mode = 2
-
-[node name="GraphUI" type="Control" parent="UI"]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_left = 60.0
-offset_top = 60.0
-offset_right = 900.0
-offset_bottom = 660.0
-
-[node name="Label" type="Label" parent="UI/GraphUI"]
-layout_mode = 0
-offset_right = 840.0
-offset_bottom = 600.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_074og")
-
-[node name="VLayout" type="VBoxContainer" parent="UI/GraphUI"]
-layout_mode = 0
-offset_right = 840.0
-offset_bottom = 600.0
-
-[node name="UITitle" type="Label" parent="UI/GraphUI/VLayout"]
-custom_minimum_size = Vector2(0, 60)
-layout_mode = 2
-text = "Graphing"
-label_settings = SubResource("LabelSettings_074og")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HLayout" type="HBoxContainer" parent="UI/GraphUI/VLayout"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="GridContainer" type="GridContainer" parent="UI/GraphUI/VLayout/HLayout"]
-layout_mode = 2
-size_flags_horizontal = 3
-columns = 3
-
-[node name="YLabelControl" type="Control" parent="UI/GraphUI/VLayout/HLayout/GridContainer"]
-custom_minimum_size = Vector2(60, 0)
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="YLabel" type="Label" parent="UI/GraphUI/VLayout/HLayout/GridContainer/YLabelControl"]
-custom_minimum_size = Vector2(384, 60)
-layout_mode = 0
-offset_top = 384.0
-offset_right = 384.0
-offset_bottom = 444.0
-rotation = -1.5708
-text = "Y-Axis Label"
-label_settings = SubResource("LabelSettings_cegan")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="YTicks" type="VBoxContainer" parent="UI/GraphUI/VLayout/HLayout/GridContainer"]
-custom_minimum_size = Vector2(40, 0)
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="GraphSpace" type="Control" parent="UI/GraphUI/VLayout/HLayout/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-script = ExtResource("10_cegan")
-
-[node name="Line2D" type="Line2D" parent="UI/GraphUI/VLayout/HLayout/GridContainer/GraphSpace"]
-width = 4.0
-
-[node name="1-2" type="Control" parent="UI/GraphUI/VLayout/HLayout/GridContainer"]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-
-[node name="2-2" type="Control" parent="UI/GraphUI/VLayout/HLayout/GridContainer"]
-layout_mode = 2
-
-[node name="XTicks" type="HBoxContainer" parent="UI/GraphUI/VLayout/HLayout/GridContainer"]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-
-[node name="1-3" type="Control" parent="UI/GraphUI/VLayout/HLayout/GridContainer"]
-layout_mode = 2
-
-[node name="2-3" type="Control" parent="UI/GraphUI/VLayout/HLayout/GridContainer"]
-layout_mode = 2
-
-[node name="XLabel" type="Label" parent="UI/GraphUI/VLayout/HLayout/GridContainer"]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Time (s)"
-label_settings = SubResource("LabelSettings_82xsv")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Padding" type="Control" parent="UI/GraphUI/VLayout/HLayout"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-
-[node name="Options" type="HBoxContainer" parent="UI/GraphUI/VLayout"]
-custom_minimum_size = Vector2(0, 60)
-layout_mode = 2
 
 [node name="Room" type="Node3D" parent="."]
 

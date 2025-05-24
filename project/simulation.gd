@@ -8,6 +8,8 @@ var health_label: Label
 var immune_label: Label
 var bacteria_label: Label
 var mirror_label: Label
+var vaccine_label: Label
+var grapher: Grapher
 
 var BOUNDS_RECT: Rect2
 var IN_RECT: Rect2
@@ -41,6 +43,15 @@ var immune_cell_level = 2
 var immune_cell_count = 0
 
 var timer = 0
+var tick = 0
+
+var data = {
+	"Time": [],
+	"Health": [],
+	"Immune Activity": [],
+	"Bacteria": [],
+	"Mirror Bacteria": []
+}
 
 func _ready():
 	var size = get_node("Plane").mesh.get_aabb().size
@@ -52,9 +63,12 @@ func _ready():
 	immune_label = get_node("../UI/Stats/Immune/Label")	
 	bacteria_label = get_node("../UI/Stats/Bacteria/Label")	
 	mirror_label = get_node("../UI/Stats/MirrorBacteria/Label")	
+	vaccine_label = get_node("../UI/Stats/Vaccine/Label")	
+	grapher = get_node("../UI/GraphUI/VLayout/HLayout/GridContainer/GraphSpace")
 		
 func _process(delta):
 	if timer > 0.5:
+		tick += 1
 		update_sim()
 		do_spawn_cycle()
 		timer = 0
@@ -74,7 +88,7 @@ func update_sim():
 		will_health = clamp(will_health, 0, 1)
 	var diff = 3 * 10**10 * sqrt(will_health) - bacteria_limit
 	bacteria_limit += 0.2 * diff + 10**6 * sign(diff)
-	bacteria_limit = clamp(bacteria_limit, 0, 3 * 10**10)
+	bacteria_limit = clamp(bacteria_limit, 0, 1 * 10**10)
 	immune_activation *= 0.95
 	immune_activation += 0.01 * clamp(log(bacteria_num)/log(10), 0, 20) - 0.025 + 0.01 * clamp(log(mirror_bacteria_num)/log(10), 0, 20) * vaccine_effect
 	immune_activation = clamp(immune_activation, 0, min(sqrt(will_health/0.4), 1))
@@ -85,7 +99,7 @@ func update_sim():
 	mirror_bacteria_num = max(0, calc_bacteria(mirror_bacteria_num, immune_activation + complement_activation * 0.3))
 	
 	health_label.text = "Health\n%s%%" % int(will_health * 100)
-	immune_label.text = "Immune Activity\n%s%% / %s%%" % [int(round(immune_activation * 100)), int(round(complement_activation * 100))]
+	immune_label.text = "Immune Activity\n%s%%" % int(round(immune_activation * 100))
 	if bacteria_num < 10000:
 		bacteria_label.text = "Bacteria\n%s CFU" % int(bacteria_num)
 	else:
@@ -94,6 +108,7 @@ func update_sim():
 		mirror_label.text = "Mirror Bacteria\n%s CFU" % int(mirror_bacteria_num)
 	else:
 		mirror_label.text = "Mirror Bacteria\n%s e%s CFU" % [0.1 * int(10 * mirror_bacteria_num / 10**int(log(mirror_bacteria_num)/log(10))), int(log(mirror_bacteria_num)/log(10))]
+	vaccine_label.text = "Vaccine\n%s%%" % round(vaccine_effect * 100)
 	
 	bacteria_level = max(0, int(1 * max(0, log(bacteria_num))/log(10)) - 3)
 	mirror_bacteria_level = max(0, int(1 * max(0, log(mirror_bacteria_num))/log(10)) - 3)
@@ -101,6 +116,14 @@ func update_sim():
 	glucose_level = round(2 * min(sqrt(will_health) * 2, 1))
 	glycerol_level = round(2 * min(sqrt(will_health) * 2, 1))
 	c5a_level = ceil(complement_activation * 3)
+	
+	data["Time"].append(tick*0.5)
+	data["Health"].append(will_health * 100)
+	data["Immune Activity"].append(immune_activation * 100)
+	data["Bacteria"].append(max(log(bacteria_num)/log(10), 0))
+	data["Mirror Bacteria"].append(max(log(mirror_bacteria_num)/log(10), 0))
+	
+	grapher.update_graph()
 
 func do_spawn_cycle():
 	if bacteria_count < bacteria_level or randf() < 0.003 * bacteria_level:

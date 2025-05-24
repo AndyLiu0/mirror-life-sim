@@ -21,7 +21,7 @@ static func instantiate(position):
 func _ready():
 	hitbox = get_node("Hitbox")
 	hitbox.connect("body_entered", body_entered)
-	#connect("mouse_entered", make_tag)
+	connect("mouse_entered", make_tag)
 	
 func _process(delta):
 	if target == null:

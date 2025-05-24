@@ -2,7 +2,6 @@ extends Camera3D
 
 var base_pos = self.position
 
-
 func _ready():
 	return
 	

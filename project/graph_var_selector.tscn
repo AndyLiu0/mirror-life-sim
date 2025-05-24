@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5wn13rdnskt8"]
+
+[ext_resource type="Script" uid="uid://bhnk7jr8b5mrn" path="res://graph_var_selector.gd" id="1_54gyb"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_sace3"]
+font_color = Color(0, 0, 0, 1)
+
+[node name="GraphVarSelector" type="HBoxContainer"]
+size_flags_horizontal = 6
+size_flags_vertical = 3
+script = ExtResource("1_54gyb")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+label_settings = SubResource("LabelSettings_sace3")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CheckButton" type="CheckButton" parent="."]
+layout_mode = 2

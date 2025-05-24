@@ -24,6 +24,7 @@ var SCREEN_SIZE = Vector2(
 var viewport: SubViewport
 
 func _ready():
+	Globals.SCREEN_SIZE = SCREEN_SIZE
 	position = target_rect.position
 	size = target_rect.size
 	viewport = get_child(0)
