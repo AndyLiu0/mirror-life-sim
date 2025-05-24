@@ -4,7 +4,7 @@ extends CharacterBody3D
 func _get_class():
 	return "Bacteria"
 
-static var scene: PackedScene = preload("res://Bacteria.tscn")
+static var scene: PackedScene = preload("res://bacteria.tscn")
 
 const MAX_SPEED = 5.0
 const FRICTION = 0.93
