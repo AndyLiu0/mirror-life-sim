@@ -4,7 +4,7 @@ extends CharacterBody3D
 func _get_class():
 	return "ImmuneCell"
 
-static var scene: PackedScene = preload("res://ImmuneCell.tscn")
+static var scene: PackedScene = preload("res://immune_cell.tscn")
 
 var impulse = Vector2.ZERO
 var speed = 0.0

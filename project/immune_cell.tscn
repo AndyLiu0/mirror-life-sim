@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=4 uid="uid://cag5n6uqsn2ld"]
 
-[ext_resource type="Script" uid="uid://b1oci0h5r0uo1" path="res://immune_cell.gd" id="1_3e6md"]
+[ext_resource type="Script" uid="uid://b1oci0h5r0uo1" path="res://immune_cell.gd" id="1_4fu4e"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0w1e2"]
 resource_name = "Material.001"
@@ -56,7 +56,7 @@ radius = 5.5
 collision_layer = 4
 collision_mask = 5
 motion_mode = 1
-script = ExtResource("1_3e6md")
+script = ExtResource("1_4fu4e")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.7, 0, 0, 0, -3.0598e-08, 0.4, 0, -0.7, -1.74846e-08, 0, 0, 0)

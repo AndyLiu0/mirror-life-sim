@@ -37,10 +37,6 @@ func _input(event):
 			if history_idx > 0:
 				history_idx -= 1
 			in_node.text = history[history_idx]
-		
-		if event.is_action_pressed("ui_debug_toggle_cont"):
-			cont_button.button_pressed = !cont_button.button_pressed
-			get_viewport().set_input_as_handled()
 
 func _process(delta):
 	if cont_button.button_pressed:
