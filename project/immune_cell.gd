@@ -19,6 +19,8 @@ var reset_impulse = false
 
 var leave = false
 
+var tag: Nametag
+
 static func instantiate(position):
 	var new: ImmuneCell = scene.instantiate()
 	new.position = position
@@ -28,6 +30,8 @@ static func instantiate(position):
 func _ready():
 	mesh = get_node("Mesh")
 	cell_box = get_node("CellDetectionBox")
+	connect("mouse_entered", func(): 
+		Nametag.instantiate(self, "Immune Cell", 50))
 
 func _process(delta):
 	if queue_check:

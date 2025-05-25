@@ -21,6 +21,7 @@ func _toggled(toggled_on):
 		viewport_container.target_rect = viewport_container.RECT_FULL
 		self.size = get_viewport_rect().size
 		self.position = Vector2.ZERO
+		viewport_container.mouse_filter = Control.MOUSE_FILTER_PASS
 	else:
 		viewport_container.target_rect = viewport_container.RECT_MIN
 		viewport_container.mouse_filter = Control.MOUSE_FILTER_IGNORE

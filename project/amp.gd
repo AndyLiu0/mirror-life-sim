@@ -10,8 +10,16 @@ var mesh: MeshInstance3D
 var init_scale
 var bacteria_box: Area3D
 var kill_box: Area3D
-var mirror_kill_box: Area3D
+var kill_box2: Area3D
 var target: CharacterBody3D
+var orient = 0
+var sim: Simulation
+var sim_zoom: Button
+
+var tag: Nametag
+
+static var popup_d: PackedScene = preload("res://interaction_popup_d.tscn")
+static var popup_e: PackedScene = preload("res://interaction_popup_e.tscn")
 
 static func instantiate(position, velocity):
 	var new = scene.instantiate()
@@ -23,13 +31,17 @@ static func instantiate(position, velocity):
 func _ready():
 	bacteria_box = get_node("BacteriaDetectionBox")
 	kill_box = get_node("BacteriaKillBox")
+	kill_box2 = get_node("BacteriaKillBox2")
 	mesh = get_node("Mesh")
-	mirror_kill_box = get_node("MirrorKillBox")
+	sim = get_tree().get_current_scene().get_node("Simulation")
 	init_scale = mesh.scale
 	mesh.scale = init_scale * Vector3(1, 0.5, 0.5)
 	bacteria_box.connect("body_entered", _body_entered)
 	kill_box.connect("body_entered", kill_check)
-	mirror_kill_box.connect("body_entered", mirror_kill_check)
+	kill_box2.connect("body_entered", kill_check2)
+	sim_zoom = get_tree().get_current_scene().get_node("BottomUI/ZoomButton")
+	connect("mouse_entered", func(): 
+		Nametag.instantiate(self, "AMP", 50))
 
 func _process(delta):
 	timer += delta
@@ -55,12 +67,12 @@ func _process(delta):
 func track_target(delta):
 	var diff = target.position - position
 	var rel_diff = diff.rotated(Vector3(0, 1, 0), -target.rotation.y)
-	var target_pos = target.position + Vector3(abs(rel_diff.x)/2, 0, 0).rotated(Vector3(0, 1, 0), target.rotation.y + PI/2 * sign(rel_diff.z))
-	var ang_diff = wrapf(target.rotation.y - rotation.y, -PI/2, PI/2)
+	var target_pos = target.position + Vector3(abs(rel_diff.x), 0, 0).rotated(Vector3(0, 1, 0), target.rotation.y + PI/2 * sign(rel_diff.z))
+	var ang_diff = wrapf(target.rotation.y - (rotation.y + orient*PI/2), -PI/2, PI/2)
 	rotation.y += 3 * sign(ang_diff) * delta
 	velocity += 8 * delta * (target_pos - position)
 	move_and_slide()
-	velocity *= 0.06**delta
+	velocity *= 0.04**delta
 	target.velocity *= 0.1**delta
 	target.speed *= 0.2**delta
 	target.omega *= 0.2**delta
@@ -73,14 +85,25 @@ func _body_entered(body):
 		target.speed *= 0.2
 		timer = 0
 		get_node("CollisionShape3D").disabled = true
+		orient = randi_range(0, 1)
+		
 
 func kill_check(body):
-	if body is Bacteria and body.die == 0:
+	if (body is Bacteria or body is MirrorBacteria) and body.die == 0:
 		body.trigger_death()
 		timer = 5
+		if sim_zoom.button_pressed:
+			var p: InteractionPopup = popup_e.instantiate()
+			get_tree().get_current_scene().get_node("TopUI").add_child(p)
+			var diff = (position - body.position).normalized() * 100
+			p.position += sim.camera.unproject_position(body.global_position) + sim.camera.get_node("../..").position + Vector2(diff.x, diff.z)
 
-func mirror_kill_check(body):
-	if body is MirrorBacteria and body.die == 0:
+func kill_check2(body):
+	if (body is Bacteria or body is MirrorBacteria) and body.die == 0:
 		body.trigger_death()
 		timer = 5
-		
+		if sim_zoom.button_pressed:
+			var p: InteractionPopup = popup_d.instantiate()
+			get_tree().get_current_scene().get_node("TopUI").add_child(p)
+			var diff = (position - body.position).normalized() * 100
+			p.position += sim.camera.unproject_position(body.global_position) + sim.camera.get_node("../..").position + Vector2(diff.x, diff.z)

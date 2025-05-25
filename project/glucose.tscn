@@ -49,10 +49,10 @@ _surfaces = [{
 blend_shape_mode = 0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2rlxi"]
-size = Vector3(1.8, 1, 1.8)
+size = Vector3(1.8, 0.7, 1.8)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xv8qe"]
-size = Vector3(1.5, 2, 1.5)
+size = Vector3(1.5, 1, 1.5)
 
 [node name="Glucose" type="RigidBody3D"]
 collision_layer = 2147483648
@@ -76,4 +76,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 shape = SubResource("BoxShape3D_2rlxi")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 shape = SubResource("BoxShape3D_xv8qe")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://18cfh0apxgu3"]
+[gd_scene load_steps=8 format=4 uid="uid://18cfh0apxgu3"]
 
 [ext_resource type="Script" uid="uid://b0qlhhml23wyc" path="res://c5a.gd" id="1_nmt35"]
 
@@ -75,9 +75,14 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_rdm0g")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0uolu"]
-size = Vector3(2, 1, 1.3)
+size = Vector3(2, 0.5, 1.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nmt35"]
+size = Vector3(1.8, 0.8, 1.2)
 
 [node name="C5a" type="CharacterBody3D"]
+collision_layer = 2147483648
+collision_mask = 0
 script = ExtResource("1_nmt35")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
@@ -91,3 +96,7 @@ collision_layer = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Killbox"]
 transform = Transform3D(0.819152, 0, -0.573576, 0, 1, 0, 0.573576, 0, 0.819152, 0, 0, 0)
 shape = SubResource("BoxShape3D_0uolu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.819152, 0, -0.573576, 0, 1, 0, 0.573576, 0, 0.819152, 0, 0, 0)
+shape = SubResource("BoxShape3D_nmt35")

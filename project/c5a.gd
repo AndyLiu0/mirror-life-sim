@@ -8,6 +8,8 @@ static var scene: PackedScene = preload("res://c5a.tscn")
 
 var hitbox: Area3D
 
+var tag: Nametag
+
 static func instantiate(position):
 	var new: C5a = scene.instantiate()
 	new.position = position
@@ -18,6 +20,8 @@ static func instantiate(position):
 func _ready():
 	hitbox = get_node("Killbox")
 	hitbox.connect("body_entered", body_entered)	
+	connect("mouse_entered", func(): 
+		Nametag.instantiate(self, "C5A", 50))
 	
 func _process(delta):
 	move_and_slide()

@@ -10,6 +10,8 @@ var target: MirrorBacteria = null
 
 var hitbox: Area3D
 
+var tag: Nametag
+
 static func instantiate(position):
 	var new: Glycerol = scene.instantiate()
 	new.position = position
@@ -20,6 +22,8 @@ static func instantiate(position):
 func _ready():
 	hitbox = get_node("Hitbox")
 	hitbox.connect("body_entered", body_entered)
+	connect("mouse_entered", func(): 
+		Nametag.instantiate(self, "Glycerol", 35))
 	
 func _process(delta):
 	if target == null:

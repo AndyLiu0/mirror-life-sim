@@ -104,7 +104,11 @@ albedo_color = Color(0.94, 0.3572, 0.3572, 1)
 
 [node name="Main" type="Node3D"]
 
+[node name="TopUI" type="CanvasLayer" parent="."]
+layer = 2
+
 [node name="UI" type="CanvasLayer" parent="."]
+layer = 2
 
 [node name="AddButtons" type="Node2D" parent="UI"]
 

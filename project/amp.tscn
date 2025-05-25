@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bwoqvl3ns2dri" path="res://amp.gd" id="1_70f2a"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_70f2a"]
+size = Vector3(1.85, 1, 0.3)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_640qs"]
 resource_name = "Material.003"
 vertex_color_use_as_albedo = true
@@ -75,21 +78,21 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_4k7g2")
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_70f2a"]
-height = 0.8
+height = 0.6
 radius = 2.0
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_vpqxq"]
+size = Vector3(1, 0.5, 0.4)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_k1i8f"]
-size = Vector3(0.9, 0.5, 0.7)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_70f2a"]
-size = Vector3(1.85, 0.5, 0.3)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_7bl0g"]
-size = Vector3(2, 0.5, 0.4)
+size = Vector3(2, 0.5, 0.2)
 
 [node name="Amp" type="CharacterBody3D"]
 collision_layer = 128
 script = ExtResource("1_70f2a")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_70f2a")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(3.10878e-09, 0.0138925, 0.0207846, -0.025, 1.88745e-09, 2.47771e-09, -1.92327e-10, -0.0207846, 0.0138925, 0, 0, 0)
@@ -104,12 +107,9 @@ shape = SubResource("CylinderShape3D_70f2a")
 [node name="BacteriaKillBox" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BacteriaKillBox"]
+shape = SubResource("BoxShape3D_vpqxq")
+
+[node name="BacteriaKillBox2" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BacteriaKillBox2"]
 shape = SubResource("BoxShape3D_k1i8f")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_70f2a")
-
-[node name="MirrorKillBox" type="Area3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MirrorKillBox"]
-shape = SubResource("BoxShape3D_7bl0g")

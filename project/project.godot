@@ -48,6 +48,12 @@ ui_graph_toggle={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="Bacteria"
+3d_physics/layer_2="Molecules"
+3d_physics/layer_3="Immune Cells"
+
 [physics]
 
 3d/default_linear_damp=0.0

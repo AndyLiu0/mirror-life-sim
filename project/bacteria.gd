@@ -26,6 +26,8 @@ var die = 0
 
 var mesh_mat: StandardMaterial3D
 
+var tag: Nametag
+
 static func instantiate(position):
 	var new: Bacteria = scene.instantiate()
 	new.position = position
@@ -36,6 +38,8 @@ static func instantiate(position):
 func _ready():
 	mesh = get_node("BacteriaMesh")
 	molecule_box = get_node("MoleculeDetectionBox")
+	connect("mouse_entered", func(): 
+		Nametag.instantiate(self, "Bacteria", 50))
 
 func trigger_death():
 	die = 0.01

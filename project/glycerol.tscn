@@ -78,12 +78,13 @@ shadow_mesh = SubResource("ArrayMesh_wbqgd")
 size = Vector3(1.6, 1, 0.8)
 
 [node name="Glycerol" type="RigidBody3D"]
-collision_layer = 2
+collision_layer = 2147483648
+collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_g7i30")
 
 [node name="GlycerolMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(3.73054e-09, 0.016671, 0.0249415, -0.03, 2.26494e-09, 2.97326e-09, -2.30792e-10, -0.0249415, 0.016671, 0, 0, 0)
+transform = Transform3D(3.73054e-09, 0.016671, 0.0249415, -0.03, 2.26494e-09, 2.97326e-09, -2.30792e-10, -0.0249415, 0.016671, 0, 0, -0.05)
 mesh = SubResource("ArrayMesh_g7i30")
 skeleton = NodePath("")
 
@@ -91,5 +92,9 @@ skeleton = NodePath("")
 collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("BoxShape3D_4jg2n")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 shape = SubResource("BoxShape3D_4jg2n")

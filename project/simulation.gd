@@ -10,6 +10,7 @@ var bacteria_label: Label
 var mirror_label: Label
 var vaccine_label: Label
 var grapher: Grapher
+var camera: Camera3D
 
 var BOUNDS_RECT: Rect2
 var IN_RECT: Rect2
@@ -65,6 +66,7 @@ func _ready():
 	mirror_label = get_node("../UI/Stats/MirrorBacteria/Label")	
 	vaccine_label = get_node("../UI/Stats/Vaccine/Label")	
 	grapher = get_node("../UI/GraphUI/VLayout/HLayout/GridContainer/GraphSpace")
+	camera = get_node("SimCameraLayer/SimCameraViewportContainer/SimCameraViewport/SimCamera")
 		
 func _process(delta):
 	if timer > 0.5:
@@ -90,7 +92,7 @@ func update_sim():
 	bacteria_limit += 0.2 * diff + 10**6 * sign(diff)
 	bacteria_limit = clamp(bacteria_limit, 0, 1 * 10**10)
 	immune_activation *= 0.95
-	immune_activation += 0.01 * clamp(log(bacteria_num)/log(10), 0, 20) - 0.025 + 0.01 * clamp(log(mirror_bacteria_num)/log(10), 0, 20) * vaccine_effect
+	immune_activation += 0.01 * clamp(log(bacteria_num + mirror_bacteria_num**vaccine_effect)/log(10), 0, 20) - 0.025 + 0.01
 	immune_activation = clamp(immune_activation, 0, min(sqrt(will_health/0.4), 1))
 	complement_activation *= 0.92
 	complement_activation += 0.2 * (1 - will_health) - 0.01

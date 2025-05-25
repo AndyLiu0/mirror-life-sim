@@ -21,7 +21,8 @@ static func instantiate(position):
 func _ready():
 	hitbox = get_node("Hitbox")
 	hitbox.connect("body_entered", body_entered)
-	connect("mouse_entered", make_tag)
+	connect("mouse_entered", func(): 
+		Nametag.instantiate(self, "Glucose", 45))
 	
 func _process(delta):
 	if target == null:
@@ -41,11 +42,3 @@ func _process(delta):
 func body_entered(body):
 	if target == null and body is Bacteria:
 		target = body
-
-func make_tag():
-	print("tag")
-	if tag == null or !is_instance_valid(tag):
-		tag = Nametag.instantiate("Glucose", self)
-		get_parent().add_child(tag)
-	else:
-		tag.timer = 2

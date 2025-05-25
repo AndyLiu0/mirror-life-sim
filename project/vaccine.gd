@@ -14,6 +14,8 @@ var latch_box: Area3D
 var target: MirrorBacteria
 var scale_timer = 0
 
+var tag: Nametag
+
 static func instantiate(position):
 	var new: Vaccine = scene.instantiate()
 	new.position = position
@@ -29,6 +31,8 @@ func _ready():
 	init_scale = mesh.scale
 	bacteria_box.connect("body_entered", bacteria_check)
 	latch_box.connect("body_entered", latch_check)
+	connect("mouse_entered", func(): 
+			Nametag.instantiate(self, "Vaccine Molecule", 45))
 
 func _process(delta):
 	if scale_timer > 0:

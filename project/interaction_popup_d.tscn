@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=3 uid="uid://drqo5d3st66xi"]
+
+[ext_resource type="Script" uid="uid://bum1sjvrn6blq" path="res://interaction_popup_base.gd" id="1_oqrsq"]
+[ext_resource type="Texture2D" uid="uid://bpis7bbfejoou" path="res://Assets/disruption.png" id="2_oqrsq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kx0oq"]
+bg_color = Color(0.06, 0.06, 0.06, 0.572549)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gaqwc"]
+size = Vector2(200, 155)
+
+[node name="InteractionPopupD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -76.0
+offset_top = -58.0
+offset_right = -884.0
+offset_bottom = -662.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(76, 58)
+mouse_filter = 1
+script = ExtResource("1_oqrsq")
+
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 152.0
+offset_bottom = 116.0
+pivot_offset = Vector2(76, 58)
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 0
+offset_right = 152.0
+offset_bottom = 116.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_kx0oq")
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+clip_contents = true
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 1444.0
+offset_bottom = 1084.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_oqrsq")
+expand_mode = 1
+stretch_mode = 3
+
+[node name="MouseBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseBox"]
+position = Vector2(76, 58)
+shape = SubResource("RectangleShape2D_gaqwc")
