@@ -525,7 +525,6 @@ offset_top = -12.0
 offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 2
-button_pressed = true
 
 [node name="Room" type="Node3D" parent="."]
 
@@ -597,7 +596,7 @@ material = SubResource("StandardMaterial3D_efxa6")
 transform = Transform3D(0.0247747, -0.985827, -0.165928, 0.34108, 0.164355, -0.925555, 0.939708, -0.0336645, 0.340318, -0.592402, 0.61429, -0.146264)
 mesh = SubResource("CylinderMesh_cegan")
 
-[node name="IVRing" type="MeshInstance3D" parent="Room"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Room"]
 transform = Transform3D(0.671874, -0.650545, -0.354086, 0.029099, -0.454511, 0.890266, -0.740094, -0.60845, -0.286444, -0.57828, 0.611248, -0.145679)
 mesh = SubResource("CylinderMesh_82xsv")
 

@@ -144,7 +144,6 @@ func _draw():
 func update_x(t: float):
 	x_scale = int(ceil(1.1 * t / num_x_ticks))
 	x_scale_factor = size.x * 2/float(2*num_x_ticks+1) / x_scale
-	print(x_scale)
 	for l in lines.values():
 		(l as GraphLine).set_x_factor(x_scale_factor)
 	for i in range(1, num_x_ticks + 1):
