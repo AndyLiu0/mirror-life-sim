@@ -58,4 +58,4 @@ func update_ui(zoom):
 	target_x = min_x if zoom else max_x
 	
 func _button_pressed():
-	sim_node.mirror_bacteria_num += 10000
+	sim_node.mirror_bacteria_num += 1000

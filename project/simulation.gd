@@ -17,7 +17,7 @@ var IN_RECT: Rect2
 
 var will_health = 1
 
-var bacteria_limit: float = 10 ** 10
+var bacteria_limit: float = 1 ** 10
 
 var bacteria_num: float = 0
 var bacteria_level = 0
@@ -65,7 +65,7 @@ func _ready():
 	bacteria_label = get_node("../UI/Stats/Bacteria/Label")	
 	mirror_label = get_node("../UI/Stats/MirrorBacteria/Label")	
 	vaccine_label = get_node("../UI/Stats/Vaccine/Label")	
-	grapher = get_node("../UI/GraphUI/VLayout/HLayout/GridContainer/GraphSpace")
+	grapher = get_node("../UI/GraphUI/VLayout/GridContainer/GraphSpace")
 	camera = get_node("SimCameraLayer/SimCameraViewportContainer/SimCameraViewport/SimCamera")
 		
 func _process(delta):
@@ -77,23 +77,23 @@ func _process(delta):
 	timer += delta
 
 func calc_bacteria(num, immunity):
-	return int(num + 0.3 * num * (1 - (bacteria_num + mirror_bacteria_num)/bacteria_limit) * (1 - immunity/3) - (sqrt(num) * 3 * 10**2 + num / 3) * immunity**2 * (log(num)**2) / (max(log(bacteria_num), 0)**2 + max(log(mirror_bacteria_num), 0)**2))
+	return int(num + 1 * num**0.9 * (1 - (bacteria_num + mirror_bacteria_num)/bacteria_limit)**3 * (1 - immunity/3) - (num**0.8 * 5) * immunity**2 * (max(log(num), 0)**3 / (max(log(bacteria_num), 0.1)**3 + max(log(mirror_bacteria_num), 0)**3)) ** 0.5)
 
 func reset():
 	for node in get_children():
 		break
 	
-
 func update_sim():
 	if will_health > 0:
 		will_health += min(0.02, 0.1 * will_health) - 0.001 * clamp(log(bacteria_num + mirror_bacteria_num)/log(10), 0, 20)**2 + (1 - will_health) * 0.06
 		will_health = clamp(will_health, 0, 1)
-	var diff = 3 * 10**10 * sqrt(will_health) - bacteria_limit
+	var diff = 3 * 10**9 * sqrt(will_health) - bacteria_limit
 	bacteria_limit += 0.2 * diff + 10**6 * sign(diff)
-	bacteria_limit = clamp(bacteria_limit, 0, 1 * 10**10)
-	immune_activation *= 0.95
-	immune_activation += 0.01 * clamp(log(bacteria_num + mirror_bacteria_num**vaccine_effect)/log(10), 0, 20) - 0.025 + 0.01
-	immune_activation = clamp(immune_activation, 0, min(sqrt(will_health/0.4), 1))
+	bacteria_limit = clamp(bacteria_limit, 0, 1 * 10**9)
+	var im_diff = -immune_activation * 0.045
+	im_diff += 0.015 * clamp(log(bacteria_num + mirror_bacteria_num**vaccine_effect)/log(10), 0, 20)**0.7 - 0.01
+	immune_activation += im_diff if im_diff > 0 else im_diff/2
+	immune_activation = clamp(immune_activation, 0, min(sqrt(will_health/0.2), 1))
 	complement_activation *= 0.92
 	complement_activation += 0.2 * (1 - will_health) - 0.01
 	complement_activation = min(max(complement_activation, 0.1), min(sqrt(will_health/0.4), 1))
@@ -112,8 +112,8 @@ func update_sim():
 		mirror_label.text = "Mirror Bacteria\n%s e%s CFU" % [0.1 * int(10 * mirror_bacteria_num / 10**int(log(mirror_bacteria_num)/log(10))), int(log(mirror_bacteria_num)/log(10))]
 	vaccine_label.text = "Vaccine\n%s%%" % round(vaccine_effect * 100)
 	
-	bacteria_level = max(0, int(1 * max(0, log(bacteria_num))/log(10)) - 3)
-	mirror_bacteria_level = max(0, int(1 * max(0, log(mirror_bacteria_num))/log(10)) - 3)
+	bacteria_level = max(0, int(1.2 * max(0, log(bacteria_num))/log(10)) - 3)
+	mirror_bacteria_level = max(0, int(1.2 * max(0, log(mirror_bacteria_num))/log(10)) - 3)
 	immune_cell_level = (int(immune_activation * 4) + 1) if will_health > 0 else 0
 	glucose_level = round(2 * min(sqrt(will_health) * 2, 1))
 	glycerol_level = round(2 * min(sqrt(will_health) * 2, 1))

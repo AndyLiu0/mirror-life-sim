@@ -5,18 +5,25 @@ var sim: Simulation
 
 var x_ticks_node: HBoxContainer
 var y_ticks_node: VBoxContainer
+var y_ticks_node2: VBoxContainer
+
 var v_select_container: HBoxContainer
 var y_label_node: Label
-var line: Line2D
+var y_label_node2: Label
+
+var lines: Dictionary
 var full_ui: Control
+
+var shown_vars = []
+var shown_percent_vars = []
+var shown_log_vars = []
 
 const num_x_ticks = 12
 const num_y_ticks = 10
 
 const tick_length = 7
 
-var x_scale: float
-var y_scale: float
+var x_scale = 4
 
 var y_var: String
 
@@ -25,27 +32,59 @@ var graph_settings: Dictionary
 var tick_label_scene: PackedScene = preload("res://tick_label.tscn")
 var var_selector_scene: PackedScene = preload("res://graph_var_selector.tscn")
 
+var percent_ticks
+var log_ticks
+
+var x_scale_factor
 
 func _ready():
-	var percent_ticks = range(10, 110, 10)
-	var log_ticks = range(1, 11)
+	percent_ticks = range(10, 110, 10)
+	log_ticks = range(1, 11)
 	for i in len(log_ticks):
 		log_ticks[i] = "10^%s" % log_ticks[i]
 		
 	graph_settings = {
-		"Health": ["Health (%)", percent_ticks, 10, Color.LIME_GREEN],
-		"Immune Activity": ["Immune Activity (%)", percent_ticks, 10, Color.ORANGE],
-		"Bacteria": ["Bacteria (CFU)", log_ticks, 1, Color.DARK_GREEN],
-		"Mirror Bacteria": ["Mirror Bacteria (CFU)", log_ticks, 1, Color.DARK_BLUE]
+		"Health": {
+			"label": "Health (%)",
+			"ticks": percent_ticks, 
+			"yscale": 10, 
+			"color": Color.LIME_GREEN
+		},
+		"Immune Activity": {
+			"label": "Immune Activity (%)", 
+			"ticks": percent_ticks, 
+			"yscale": 10, 
+			"color": Color.ORANGE
+		},
+		"Bacteria": {
+			"label": "Bacteria (CFU)", 
+			"ticks": log_ticks, 
+			"yscale": 1, 
+			"color": Color.DARK_GREEN
+		},
+		"Mirror Bacteria": {
+			"label": "Mirror Bacteria (CFU)", 
+			"ticks": log_ticks, 
+			"yscale": 1, 
+			"color": Color.DARK_BLUE
+		}
 	}
+	x_scale_factor = size.x * 2.0/float(2*num_x_ticks+1) / x_scale
+	for v in graph_settings.keys():
+		lines[v] = GraphLine.new()
+		lines[v].default_color = graph_settings[v]["color"]
+		add_child(lines[v])
+		lines[v].x_factor = 624 * 2/float(2*num_x_ticks+1) / x_scale
+		lines[v].y_factor = 384 * 2/float(2*num_y_ticks+1) / graph_settings[v]["yscale"]
+		lines[v].y_size = 384
 	
 	sim = get_tree().get_current_scene().get_node("Simulation")
-	x_scale = 5
 	x_ticks_node = get_node("../XTicks")
 	y_ticks_node = get_node("../YTicks")
-	v_select_container = get_node("../../../Options")
+	y_ticks_node2 = get_node("../YTicks2")
+	v_select_container = get_node("../../Options")
 	y_label_node = get_node("../YLabelControl/YLabel")
-	line = get_node("Line2D")
+	y_label_node2 = get_node("../YLabelControl2/YLabel")
 	full_ui = get_tree().get_current_scene().get_node("UI/GraphUI")
 
 	
@@ -61,13 +100,23 @@ func _ready():
 		l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		l.size_flags_vertical = Control.SIZE_EXPAND_FILL
 
-	x_ticks_node.add_child(c)
-	
 	for v in graph_settings.keys():
 		var s: HBoxContainer = var_selector_scene.instantiate()
 		s.get_node("Label").text = v
 		s.grapher = self
 		v_select_container.add_child(s)
+	
+	for axis in [y_ticks_node, y_ticks_node2]:
+		for i in range(num_y_ticks):
+			var l: Label = tick_label_scene.instantiate()
+			axis.add_child(l)
+			l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			l.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		c = Control.new()
+		axis.add_child(c)
+		c.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		c.size_flags_stretch_ratio = 0.5
+	
 
 func _input(event):
 	if event.is_action_pressed("ui_graph_toggle"):
@@ -85,36 +134,78 @@ func _draw():
 		var y = (t*2+1)/float(2*num_y_ticks + 1) * size.y
 		draw_line(Vector2(-tick_length, y), Vector2(0, y), Color.BLACK, 2)
 		draw_line(Vector2(0, y), Vector2(size.x, y), Color.GRAY, 1)
+	
+	if len(shown_percent_vars) and len(shown_log_vars):
+		draw_line(Vector2(size.x, 0), Vector2(size.x, size.y), Color.BLACK, 2.0)
+		for t in range(num_y_ticks):
+			var y = (t*2+1)/float(2*num_y_ticks + 1) * size.y
+			draw_line(Vector2(size.x, y), Vector2(size.x + tick_length, y), Color.BLACK, 2)
+
+func update_x(t: float):
+	x_scale = int(ceil(1.1 * t / num_x_ticks))
+	x_scale_factor = size.x * 2/float(2*num_x_ticks+1) / x_scale
+	print(x_scale)
+	for l in lines.values():
+		(l as GraphLine).set_x_factor(x_scale_factor)
+	for i in range(1, num_x_ticks + 1):
+		x_ticks_node.get_child(i).text = str(x_scale*i)
+	
+
+func update_y():
+	shown_vars = []
+	shown_percent_vars = []
+	shown_log_vars = []
+	
+	y_label_node.text = ""
+	y_label_node2.text = ""
+	for b in v_select_container.get_children():
+		var t = b.label.text
+		if b.button.button_pressed:
+			shown_vars.append(t)
+			if graph_settings[t]["ticks"] == percent_ticks:
+				shown_percent_vars.append(t)
+			else:
+				shown_log_vars.append(t)
+
+	for t in y_ticks_node2.get_children():
+		if t is Label:
+			t.text = ""
+
+	if len(shown_percent_vars):
+		for i in range(y_ticks_node.get_child_count() - 1):
+			y_ticks_node.get_child(i).text = str(percent_ticks[num_y_ticks - i - 1])
+		for v in shown_percent_vars:
+			y_label_node.text += "%s, " % graph_settings[v]["label"]
+		y_label_node.text = y_label_node.text.substr(0, len(y_label_node.text) - 2)
 			
+		if len(shown_log_vars):
+			for i in range(y_ticks_node2.get_child_count() - 1):
+				y_ticks_node2.get_child(i).text = str(log_ticks[num_y_ticks - i - 1])
+			for v in shown_log_vars:
+				y_label_node2.text += "%s, " % graph_settings[v]["label"]
+			y_label_node2.text = y_label_node2.text.substr(0, len(y_label_node2.text) - 2)
 
-func update_y(dep_var):
-	y_var = dep_var
-	for n in y_ticks_node.get_children():
-		n.queue_free()
-	y_label_node.text = graph_settings[dep_var][0]
-	var c: Control = Control.new()
-	c.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	c.size_flags_stretch_ratio = 0.5
-	
-	for i in range(num_y_ticks - 1, -1, -1):
-		var l: Label = tick_label_scene.instantiate()
-		l.text = str(graph_settings[dep_var][1][i])
-		y_ticks_node.add_child(l)
-		l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		l.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	elif len(shown_log_vars):
+		for i in range(y_ticks_node.get_child_count() - 1):
+			y_ticks_node.get_child(i).text = str(log_ticks[num_y_ticks - i - 1])
+		for v in shown_log_vars:
+			y_label_node.text += "%s, " % graph_settings[v]["label"]
+		y_label_node.text = y_label_node.text.substr(0, len(y_label_node.text) - 2)
+	else:
+		y_label_node.text = "Y-Axis (None)"
+		for t in y_ticks_node.get_children():
+			if t is Label:
+				t.text = ""
 
-	y_ticks_node.add_child(c)
-	
-	y_scale = graph_settings[dep_var][2]
-	line.default_color = graph_settings[dep_var][3]
+	for v in lines.keys():
+		lines[v].visible = v in shown_vars
+
+	queue_redraw()
 	update_graph()
 
 func update_graph():
-	if y_var in graph_settings.keys():
-		var last = Vector2(0, size.y)
-		var x_scale_factor = 0.5 / x_scale * size.x * 2/float(2*num_x_ticks+1)
-		var y_scale_factor = size.y * 2/float(2*num_y_ticks+1) / y_scale
-		line.clear_points()
-		for i in range(len(sim.data[y_var])):
-			var new = Vector2(sim.data["Time"][i] * x_scale_factor, size.y - sim.data[y_var][i] * y_scale_factor)
-			line.add_point(new)
+	var t = sim.data["Time"][-1]
+	if t > num_x_ticks * x_scale * 0.95:
+		update_x(t)
+	for v in lines.keys():
+		(lines[v] as GraphLine).add_datapoint(Vector2(t, sim.data[v][-1]))

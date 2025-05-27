@@ -71,6 +71,7 @@ font_size = 24
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_cegan"]
+font_size = 20
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_82xsv"]
@@ -324,64 +325,86 @@ label_settings = SubResource("LabelSettings_074og")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HLayout" type="HBoxContainer" parent="UI/GraphUI/VLayout"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="GridContainer" type="GridContainer" parent="UI/GraphUI/VLayout/HLayout"]
+[node name="GridContainer" type="GridContainer" parent="UI/GraphUI/VLayout"]
 layout_mode = 2
 size_flags_horizontal = 3
-columns = 3
+size_flags_vertical = 3
+columns = 5
 
-[node name="YLabelControl" type="Control" parent="UI/GraphUI/VLayout/HLayout/GridContainer"]
-custom_minimum_size = Vector2(60, 0)
+[node name="YLabelControl" type="Control" parent="UI/GraphUI/VLayout/GridContainer"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="YLabel" type="Label" parent="UI/GraphUI/VLayout/HLayout/GridContainer/YLabelControl"]
-custom_minimum_size = Vector2(384, 60)
+[node name="YLabel" type="Label" parent="UI/GraphUI/VLayout/GridContainer/YLabelControl"]
+custom_minimum_size = Vector2(384, 50)
 layout_mode = 0
 offset_top = 384.0
 offset_right = 384.0
-offset_bottom = 444.0
+offset_bottom = 434.0
 rotation = -1.5708
-text = "Y-Axis Label"
+text = "Y-Axis (None)"
 label_settings = SubResource("LabelSettings_cegan")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="YTicks" type="VBoxContainer" parent="UI/GraphUI/VLayout/HLayout/GridContainer"]
-custom_minimum_size = Vector2(40, 0)
+[node name="YTicks" type="VBoxContainer" parent="UI/GraphUI/VLayout/GridContainer"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="GraphSpace" type="Control" parent="UI/GraphUI/VLayout/HLayout/GridContainer"]
+[node name="GraphSpace" type="Control" parent="UI/GraphUI/VLayout/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("10_cegan")
 
-[node name="Line2D" type="Line2D" parent="UI/GraphUI/VLayout/HLayout/GridContainer/GraphSpace"]
-width = 4.0
+[node name="YTicks2" type="VBoxContainer" parent="UI/GraphUI/VLayout/GridContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 3
 
-[node name="1-2" type="Control" parent="UI/GraphUI/VLayout/HLayout/GridContainer"]
+[node name="YLabelControl2" type="Control" parent="UI/GraphUI/VLayout/GridContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="YLabel" type="Label" parent="UI/GraphUI/VLayout/GridContainer/YLabelControl2"]
+custom_minimum_size = Vector2(384, 50)
+layout_mode = 0
+offset_left = 50.0
+offset_right = 434.0
+offset_bottom = 50.0
+rotation = 1.5708
+label_settings = SubResource("LabelSettings_cegan")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="1-2" type="Control" parent="UI/GraphUI/VLayout/GridContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="2-2" type="Control" parent="UI/GraphUI/VLayout/HLayout/GridContainer"]
+[node name="2-2" type="Control" parent="UI/GraphUI/VLayout/GridContainer"]
 layout_mode = 2
 
-[node name="XTicks" type="HBoxContainer" parent="UI/GraphUI/VLayout/HLayout/GridContainer"]
+[node name="XTicks" type="HBoxContainer" parent="UI/GraphUI/VLayout/GridContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="1-3" type="Control" parent="UI/GraphUI/VLayout/HLayout/GridContainer"]
+[node name="4-2" type="Control" parent="UI/GraphUI/VLayout/GridContainer"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="2-3" type="Control" parent="UI/GraphUI/VLayout/HLayout/GridContainer"]
+[node name="5-2" type="Control" parent="UI/GraphUI/VLayout/GridContainer"]
 layout_mode = 2
 
-[node name="XLabel" type="Label" parent="UI/GraphUI/VLayout/HLayout/GridContainer"]
+[node name="1-3" type="Control" parent="UI/GraphUI/VLayout/GridContainer"]
+layout_mode = 2
+
+[node name="2-3" type="Control" parent="UI/GraphUI/VLayout/GridContainer"]
+layout_mode = 2
+
+[node name="XLabel" type="Label" parent="UI/GraphUI/VLayout/GridContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -390,8 +413,11 @@ label_settings = SubResource("LabelSettings_82xsv")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Padding" type="Control" parent="UI/GraphUI/VLayout/HLayout"]
-custom_minimum_size = Vector2(100, 0)
+[node name="4-3" type="Control" parent="UI/GraphUI/VLayout/GridContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="5-3" type="Control" parent="UI/GraphUI/VLayout/GridContainer"]
 layout_mode = 2
 
 [node name="Options" type="HBoxContainer" parent="UI/GraphUI/VLayout"]
