@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://btai8te2xtyin"]
+[gd_scene load_steps=43 format=3 uid="uid://btai8te2xtyin"]
 
 [ext_resource type="Script" uid="uid://w0q34q66ycte" path="res://ZoomButton.gd" id="1_1bvp3"]
 [ext_resource type="Script" uid="uid://cc6jkq2i5x53c" path="res://Camera.gd" id="1_88gup"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://bjolhclvn0pp0" path="res://normal_bacteria_button.gd" id="9_4c57u"]
 [ext_resource type="Script" uid="uid://ubm3bq3875lc" path="res://graph_space.gd" id="10_cegan"]
 [ext_resource type="Script" uid="uid://yfmkqrsno884" path="res://mirror_bacteria_button.gd" id="10_efxa6"]
+[ext_resource type="Script" uid="uid://cdb5kmmvstlkv" path="res://options_ui.gd" id="11_82xsv"]
 [ext_resource type="Script" uid="uid://di8kkqw3nmg5" path="res://vaccine_button.gd" id="11_dg77c"]
 [ext_resource type="Script" uid="uid://dmdxt0akyhfs5" path="res://debug.gd" id="12_ycdy4"]
 
@@ -78,6 +79,13 @@ font_color = Color(0, 0, 0, 1)
 font_size = 24
 font_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cegan"]
+bg_color = Color(0.2, 0.2, 0.2, 0.588235)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [sub_resource type="BoxMesh" id="BoxMesh_88gup"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7mycd"]
@@ -96,6 +104,16 @@ albedo_color = Color(0.4324, 0.806227, 0.92, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_efxa6"]
 transparency = 1
 albedo_color = Color(1, 1, 1, 0.392157)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cegan"]
+top_radius = 0.005
+bottom_radius = 0.006
+height = 0.025
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_82xsv"]
+top_radius = 0.011
+bottom_radius = 0.011
+height = 0.03
 
 [sub_resource type="BoxMesh" id="BoxMesh_0xm2m"]
 size = Vector3(25, 0, 17)
@@ -424,6 +442,80 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 
+[node name="Options" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 500.0
+offset_right = 540.0
+offset_bottom = 40.0
+script = ExtResource("11_82xsv")
+
+[node name="Interactions" type="Control" parent="UI/Options"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 750.0
+offset_top = 5.0
+offset_right = 950.0
+offset_bottom = 45.0
+
+[node name="Label" type="Label" parent="UI/Options/Interactions"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_cegan")
+text = "Show Interactions        "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CheckButton" type="CheckButton" parent="UI/Options/Interactions"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -12.0
+offset_bottom = 12.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Labels" type="Control" parent="UI/Options"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 790.0
+offset_top = 50.0
+offset_right = 950.0
+offset_bottom = 90.0
+
+[node name="Label" type="Label" parent="UI/Options/Labels"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_cegan")
+text = "Show Labels        "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CheckButton" type="CheckButton" parent="UI/Options/Labels"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -12.0
+offset_bottom = 12.0
+grow_horizontal = 0
+grow_vertical = 2
+
 [node name="Room" type="Node3D" parent="."]
 
 [node name="Floor" type="MeshInstance3D" parent="Room"]
@@ -489,6 +581,14 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
 material = SubResource("StandardMaterial3D_efxa6")
+
+[node name="IVinsert" type="MeshInstance3D" parent="Room"]
+transform = Transform3D(0.0247747, -0.985827, -0.165928, 0.34108, 0.164355, -0.925555, 0.939708, -0.0336645, 0.340318, -0.592402, 0.61429, -0.146264)
+mesh = SubResource("CylinderMesh_cegan")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Room"]
+transform = Transform3D(0.671874, -0.650545, -0.354086, 0.029099, -0.454511, 0.890266, -0.740094, -0.60845, -0.286444, -0.57828, 0.611248, -0.145679)
+mesh = SubResource("CylinderMesh_82xsv")
 
 [node name="Simulation" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, 0)

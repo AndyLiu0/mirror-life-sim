@@ -15,6 +15,7 @@ var target: CharacterBody3D
 var orient = 0
 var sim: Simulation
 var sim_zoom: Button
+var interactions_opt: CheckButton
 
 var tag: Nametag
 
@@ -34,6 +35,7 @@ func _ready():
 	kill_box2 = get_node("BacteriaKillBox2")
 	mesh = get_node("Mesh")
 	sim = get_tree().get_current_scene().get_node("Simulation")
+	interactions_opt = get_tree().get_current_scene().get_node("UI/Options/Interactions/CheckButton")
 	init_scale = mesh.scale
 	mesh.scale = init_scale * Vector3(1, 0.5, 0.5)
 	bacteria_box.connect("body_entered", _body_entered)
@@ -92,7 +94,7 @@ func kill_check(body):
 	if (body is Bacteria or body is MirrorBacteria) and body.die == 0:
 		body.trigger_death()
 		timer = 5
-		if sim_zoom.button_pressed:
+		if sim_zoom.button_pressed and interactions_opt.button_pressed:
 			var p: InteractionPopup = popup_e.instantiate()
 			get_tree().get_current_scene().get_node("TopUI").add_child(p)
 			var diff = (position - body.position).normalized() * 100
@@ -102,7 +104,7 @@ func kill_check2(body):
 	if (body is Bacteria or body is MirrorBacteria) and body.die == 0:
 		body.trigger_death()
 		timer = 5
-		if sim_zoom.button_pressed:
+		if sim_zoom.button_pressed and interactions_opt.button_pressed:
 			var p: InteractionPopup = popup_d.instantiate()
 			get_tree().get_current_scene().get_node("TopUI").add_child(p)
 			var diff = (position - body.position).normalized() * 100

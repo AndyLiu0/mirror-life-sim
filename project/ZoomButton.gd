@@ -4,9 +4,11 @@ const padding = 10
 
 var viewport_container: SubViewportContainer
 var update_targets
+var options: Control
 
 func _ready():
 	viewport_container = get_node("/root/Main/Simulation/SimCameraLayer/SimCameraViewportContainer")
+	options = get_node("../../UI/Options")
 	match_viewport()
 
 func _process(delta):
@@ -16,6 +18,7 @@ func _process(delta):
 func _toggled(toggled_on):
 	if not is_inside_tree():
 		return
+	options.timer = 0.01 if toggled_on else -0.01
 	
 	if toggled_on:
 		viewport_container.target_rect = viewport_container.RECT_FULL

@@ -13,7 +13,6 @@ func _ready():
 func add_datapoint(point: Vector2):
 	datapoints.append(point)
 	add_point(Vector2(point.x * x_factor, y_size - point.y * y_factor))
-	print(points[-1])
 	
 func set_x_factor(x_coeff: float):
 	x_factor = x_coeff

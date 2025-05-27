@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyaeexwk66slc"]
+
+[ext_resource type="PackedScene" uid="uid://dx2t5vqnxj6kq" path="res://Assets/eye.fbx" id="1_xkkx4"]
+
+[node name="eye" instance=ExtResource("1_xkkx4")]
+
+[node name="Cube_015" parent="Cube_003" index="6"]
+transform = Transform3D(0.095216, 0.00139822, 3.37529e-18, -0.00139822, 0.095216, -2.19774e-16, -6.60189e-18, 2.19701e-16, 0.0952263, 0.00707443, -0.0400448, 0.0173835)
+
+[node name="Cube_016" parent="Cube_003" index="7"]
+transform = Transform3D(0.095216, 0.00139822, 3.37532e-18, -0.00139822, 0.095216, 0, 2.77556e-17, 0, 0.0952263, 0.0074472, -0.0400448, 0.0173835)

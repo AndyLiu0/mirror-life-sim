@@ -6,7 +6,7 @@ var control: Control
 var mouse_box: Area2D
 var pause = false
 
-const max_scale = Vector2(0.7, 0.7)
+const max_scale = Vector2(0.8, 0.8)
 
 func _ready():
 	control = get_node("Control")
@@ -14,8 +14,12 @@ func _ready():
 	mouse_box = get_node("MouseBox")
 	mouse_box.connect("mouse_entered", mouse_enter)
 	mouse_box.connect("mouse_exited", mouse_exit)
+	pause = get_rect().has_point(get_global_mouse_position())
 
 func _process(delta):
+	if pause:
+		if !get_rect().has_point(get_global_mouse_position()):
+			pause = false
 	if !pause or timer < 1.0/3:
 		timer += delta
 	if timer < 1.0/3:
@@ -31,7 +35,7 @@ func _process(delta):
 	
 func mouse_enter():
 	pause = true
-	if timer < 2 - 1/3:
+	if timer > 2 - 1.0/3:
 		timer = 2 - timer
 
 func mouse_exit():

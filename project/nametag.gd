@@ -38,6 +38,8 @@ func _ready():
 	cam = cam_viewport_container.get_node("SimCameraViewport/SimCamera")
 	target.connect("mouse_entered", mouse_enter)
 	target.connect("mouse_exited", mouse_exit)
+	if !get_tree().get_current_scene().get_node("UI/Options/Labels/CheckButton").button_pressed:
+		visible = false
 	
 func _process(delta):
 	if prep:
