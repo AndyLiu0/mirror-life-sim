@@ -54,8 +54,8 @@ func _process(delta):
 
 	timer -= delta
 	if timer < 0:
-		if sim.will_health < 0.2:
-			target = "Camera"
+		if sim.will_health < 0.15:
+			target = "None"
 			timer = 3
 		elif buttons_rect.has_point(get_viewport().get_mouse_position()):
 			roll_target(button_targets)
