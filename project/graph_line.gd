@@ -23,3 +23,7 @@ func reset():
 	clear_points()
 	for p in datapoints:
 		add_point(Vector2(p.x * x_factor, y_size -p.y * y_factor))
+
+func clear():
+	clear_points()
+	datapoints = []

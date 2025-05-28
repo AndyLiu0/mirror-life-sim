@@ -1,9 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://b5wn13rdnskt8"]
+[gd_scene load_steps=5 format=3 uid="uid://b5wn13rdnskt8"]
 
 [ext_resource type="Script" uid="uid://bhnk7jr8b5mrn" path="res://graph_var_selector.gd" id="1_54gyb"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_sace3"]
 font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_54gyb"]
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fskt2"]
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="GraphVarSelector" type="HBoxContainer"]
 size_flags_horizontal = 6
@@ -18,4 +30,8 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CheckButton" type="CheckButton" parent="."]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_54gyb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_fskt2")

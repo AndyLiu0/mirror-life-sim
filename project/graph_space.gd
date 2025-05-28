@@ -109,7 +109,7 @@ func _ready():
 
 	for v in graph_settings.keys():
 		var s: HBoxContainer = var_selector_scene.instantiate()
-		s.get_node("Label").text = v
+		s.get_node("Label").text = v + " "
 		s.grapher = self
 		v_select_container.add_child(s)
 	
@@ -176,6 +176,10 @@ func update_x(t: float):
 		x_ticks_node.get_child(i).text = str(x_scale*i)
 	
 
+func clear_lines():
+	for l in lines.values():
+		(l as GraphLine).clear()
+
 func update_y():
 	shown_vars = []
 	shown_percent_vars = []
@@ -184,7 +188,7 @@ func update_y():
 	y_label_node.text = ""
 	y_label_node2.text = ""
 	for b in v_select_container.get_children():
-		var t = b.label.text
+		var t = b.label.text.left(len(b.label.text) - 1)
 		if b.button.button_pressed:
 			shown_vars.append(t)
 			if graph_settings[t]["ticks"] == percent_ticks:

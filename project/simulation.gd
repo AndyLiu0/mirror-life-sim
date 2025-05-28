@@ -110,6 +110,8 @@ func reset():
 	timer = 0
 	tick = 0
 	
+	grapher.clear_lines()
+	
 	update_sim()
 	
 
