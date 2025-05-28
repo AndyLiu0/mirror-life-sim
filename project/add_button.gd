@@ -4,7 +4,7 @@ extends Button
 var mouse_box: Area2D
 
 const max_x = 10
-const min_x = -200
+const min_x = -170
 
 var target_x = max_x
 

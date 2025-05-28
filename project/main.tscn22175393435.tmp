@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://btai8te2xtyin"]
+[gd_scene load_steps=45 format=3 uid="uid://btai8te2xtyin"]
 
 [ext_resource type="Script" uid="uid://w0q34q66ycte" path="res://ZoomButton.gd" id="1_1bvp3"]
 [ext_resource type="Script" uid="uid://cc6jkq2i5x53c" path="res://Camera.gd" id="1_88gup"]
@@ -19,11 +19,7 @@
 [ext_resource type="Script" uid="uid://yfmkqrsno884" path="res://mirror_bacteria_button.gd" id="10_efxa6"]
 [ext_resource type="Script" uid="uid://cdb5kmmvstlkv" path="res://options_ui.gd" id="11_82xsv"]
 [ext_resource type="Script" uid="uid://di8kkqw3nmg5" path="res://vaccine_button.gd" id="11_dg77c"]
-[ext_resource type="Script" uid="uid://b6xnuby510ex1" path="res://reset_button.gd" id="12_1u8w0"]
-[ext_resource type="Script" uid="uid://bwf2q5sq36ak7" path="res://graph_button.gd" id="12_ryguw"]
 [ext_resource type="Script" uid="uid://dmdxt0akyhfs5" path="res://debug.gd" id="12_ycdy4"]
-[ext_resource type="Script" uid="uid://bxpsb5l1fk01j" path="res://reset_icon.gd" id="13_0odxb"]
-[ext_resource type="Script" uid="uid://bpsd24dl0ktgx" path="res://graph_icon.gd" id="13_d13ii"]
 [ext_resource type="Script" uid="uid://bw1kuowd5ase5" path="res://test.gd" id="16_getpj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4c57u"]
@@ -86,20 +82,6 @@ font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cegan"]
 bg_color = Color(0.2, 0.2, 0.2, 0.588235)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_getpj"]
-bg_color = Color(0.149333, 0.7, 0.14, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1u8w0"]
-bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -169,7 +151,7 @@ shape = SubResource("RectangleShape2D_4c57u")
 [node name="Button" type="Button" parent="UI/AddButtons/AddNormalBacteria"]
 offset_left = 10.0
 offset_top = 10.0
-offset_right = 200.0
+offset_right = 230.0
 offset_bottom = 90.0
 mouse_filter = 1
 text = "Add Normal Bacteria"
@@ -189,7 +171,7 @@ shape = SubResource("RectangleShape2D_4c57u")
 [node name="Button" type="Button" parent="UI/AddButtons/AddMirrorBacteria"]
 offset_left = 10.0
 offset_top = 10.0
-offset_right = 200.0
+offset_right = 230.0
 offset_bottom = 90.0
 mouse_filter = 1
 text = "Add Mirror Bacteria"
@@ -209,7 +191,7 @@ shape = SubResource("RectangleShape2D_4c57u")
 [node name="Button" type="Button" parent="UI/AddButtons/AddVaccine"]
 offset_left = 10.0
 offset_top = 10.0
-offset_right = 200.0
+offset_right = 230.0
 offset_bottom = 90.0
 mouse_filter = 1
 text = "Add Vaccine"
@@ -338,6 +320,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_w48qg")
 autowrap_mode = 2
 
 [node name="GraphUI" type="Control" parent="UI"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 60.0
@@ -475,9 +458,9 @@ script = ExtResource("11_82xsv")
 layout_mode = 3
 anchors_preset = 0
 offset_left = 750.0
-offset_top = 675.0
+offset_top = 5.0
 offset_right = 950.0
-offset_bottom = 715.0
+offset_bottom = 45.0
 
 [node name="Label" type="Label" parent="UI/Options/Interactions"]
 layout_mode = 1
@@ -508,9 +491,9 @@ grow_vertical = 2
 layout_mode = 3
 anchors_preset = 0
 offset_left = 790.0
-offset_top = 630.0
+offset_top = 50.0
 offset_right = 950.0
-offset_bottom = 670.0
+offset_bottom = 90.0
 
 [node name="Label" type="Label" parent="UI/Options/Labels"]
 layout_mode = 1
@@ -537,52 +520,6 @@ offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 2
 button_pressed = true
-
-[node name="ResetButton" type="Control" parent="UI"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 10.0
-offset_top = 560.0
-offset_right = 80.0
-offset_bottom = 630.0
-script = ExtResource("12_1u8w0")
-
-[node name="Button" type="Button" parent="UI/ResetButton"]
-layout_mode = 0
-offset_right = 70.0
-offset_bottom = 70.0
-
-[node name="Label" type="Label" parent="UI/ResetButton"]
-layout_mode = 0
-offset_right = 70.0
-offset_bottom = 70.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_getpj")
-horizontal_alignment = 1
-vertical_alignment = 1
-script = ExtResource("13_0odxb")
-
-[node name="GraphButton" type="Control" parent="UI"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 10.0
-offset_top = 640.0
-offset_right = 80.0
-offset_bottom = 710.0
-script = ExtResource("12_ryguw")
-
-[node name="Button" type="Button" parent="UI/GraphButton"]
-layout_mode = 0
-offset_right = 70.0
-offset_bottom = 70.0
-
-[node name="Label" type="Label" parent="UI/GraphButton"]
-layout_mode = 0
-offset_right = 70.0
-offset_bottom = 70.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_1u8w0")
-horizontal_alignment = 1
-vertical_alignment = 1
-script = ExtResource("13_d13ii")
 
 [node name="Room" type="Node3D" parent="."]
 

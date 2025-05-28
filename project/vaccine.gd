@@ -14,6 +14,8 @@ var latch_box: Area3D
 var target: MirrorBacteria
 var scale_timer = 0
 
+var sim: Simulation
+
 var tag: Nametag
 
 static func instantiate(position):
@@ -33,15 +35,18 @@ func _ready():
 	latch_box.connect("body_entered", latch_check)
 	connect("mouse_entered", func(): 
 			Nametag.instantiate(self, "Vaccine Molecule", 45))
+	sim = get_tree().get_current_scene().get_node("Simulation")
 
 func _process(delta):
 	if scale_timer > 0:
 		scale_timer -= min(delta, scale_timer)
 		mesh.scale = (0.7 + scale_timer) * init_scale
 	if !Globals.BOUNDS_RECT.has_point(Vector2(position.x, position.z)):
+		sim.vaccine_count -= 1
 		queue_free()
 	if latch_pos != Vector3.ZERO:
 		if !is_instance_valid(target):
+			sim.vaccine_count -= 1
 			queue_free()
 			return
 		if target.die > 0:

@@ -29,11 +29,11 @@ func _process(delta):
 		else:
 			if !style_changed:
 				if sim_zoom.button_pressed:
-					style_box.corner_radius_bottom_left = 0
-					style_box.corner_radius_top_right = 16
+					style_box.corner_radius_top_left = 0
+					style_box.corner_radius_bottom_right = 16
 				else:
-					style_box.corner_radius_bottom_left = 16
-					style_box.corner_radius_top_right = 0
+					style_box.corner_radius_top_left = 16
+					style_box.corner_radius_bottom_right = 0
 				style_changed = true
 			position = init_pos2 + target_diff2 * (1 - (2.5 * (timer)) ** 2)
 		timer -= delta
@@ -44,11 +44,11 @@ func update_ui(zoom):
 	if zoom:
 		init_pos = position
 		target_diff = Vector2(label.get_rect().size.x, 0)
-		init_pos2 = Vector2(bottom_x, Globals.SCREEN_SIZE.y)
-		target_diff2 = Vector2(0, -label.get_rect().size.y)
+		init_pos2 = Vector2(bottom_x, -label.get_rect().size.y)
+		target_diff2 = Vector2(0, label.get_rect().size.y)
 	else:
 		init_pos = position
-		target_diff = Vector2(0, label.get_rect().size.y)
+		target_diff = Vector2(0, -label.get_rect().size.y)
 		init_pos2 = Vector2(Globals.SCREEN_SIZE.x, right_y)
 		target_diff2 = Vector2(-label.get_rect().size.x, 0)
 	timer = 1

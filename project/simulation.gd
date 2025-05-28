@@ -31,6 +31,9 @@ var immune_activation = 0
 var complement_activation = 0
 var vaccine_effect = 0
 
+var vaccine_level = 0
+var vaccine_count = 0
+
 var glucose_level = 2
 var glucose_count = 0
 
@@ -45,6 +48,8 @@ var immune_cell_count = 0
 
 var timer = 0
 var tick = 0
+
+var spawns_queue = []
 
 var data = {
 	"Time": [],
@@ -67,7 +72,47 @@ func _ready():
 	vaccine_label = get_node("../UI/Stats/Vaccine/Label")	
 	grapher = get_node("../UI/GraphUI/VLayout/GridContainer/GraphSpace")
 	camera = get_node("SimCameraLayer/SimCameraViewportContainer/SimCameraViewport/SimCamera")
-		
+	update_sim()
+
+func reset():
+	for node in get_children():
+		if node.get_class() in ["RigidBody3D", "CharacterBody3D"]:
+			node.queue_free()
+	spawns_queue = []
+	
+	data = {
+		"Time": [],
+		"Health": [],
+		"Immune Activity": [],
+		"Bacteria": [],
+		"Mirror Bacteria": []
+	}
+	
+	will_health = 1
+	
+	bacteria_num = 0
+	bacteria_count = 0
+	
+	mirror_bacteria_num = 0
+	mirror_bacteria_count = 0
+	
+	immune_activation = 0
+	complement_activation = 0
+	
+	vaccine_effect = 0
+	vaccine_count = 0
+	
+	glucose_count = 0
+	glycerol_count = 0
+	c5a_count = 0
+	immune_cell_count = 0
+	
+	timer = 0
+	tick = 0
+	
+	update_sim()
+	
+
 func _process(delta):
 	if timer > 0.5:
 		tick += 1
@@ -75,13 +120,11 @@ func _process(delta):
 		do_spawn_cycle()
 		timer = 0
 	timer += delta
+	while len(spawns_queue) > 0 and spawns_queue[0][0] <= tick * 0.5 + timer:
+		(spawns_queue.pop_front()[1] as Callable).call()
 
 func calc_bacteria(num, immunity):
 	return int(num + 1 * num**0.9 * (1 - (bacteria_num + mirror_bacteria_num)/bacteria_limit)**3 * (1 - immunity/3) - (num**0.8 * 5) * immunity**2 * (max(log(num), 0)**3 / (max(log(bacteria_num), 0.1)**3 + max(log(mirror_bacteria_num), 0)**3)) ** 0.5)
-
-func reset():
-	for node in get_children():
-		break
 	
 func update_sim():
 	if will_health > 0:
@@ -117,6 +160,7 @@ func update_sim():
 	immune_cell_level = (int(immune_activation * 4) + 1) if will_health > 0 else 0
 	glucose_level = round(2 * min(sqrt(will_health) * 2, 1))
 	glycerol_level = round(2 * min(sqrt(will_health) * 2, 1))
+	vaccine_level = ceil(7 * vaccine_effect)
 	c5a_level = ceil(complement_activation * 3)
 	
 	data["Time"].append(tick*0.5)
@@ -128,21 +172,30 @@ func update_sim():
 	grapher.update_graph()
 
 func do_spawn_cycle():
+	if will_health <= 0:
+		return
 	if bacteria_count < bacteria_level or randf() < 0.003 * bacteria_level:
-		spawn_bacteria()
+		bacteria_count += 1
+		spawns_queue.append([timer + randf_range(0.5, 2.0), spawn_bacteria])
 	if mirror_bacteria_count < mirror_bacteria_level or randf() < 0.003 * mirror_bacteria_level:
-		spawn_mirror_bacteria()
+		mirror_bacteria_count += 1
+		spawns_queue.append([timer + randf_range(0.5, 2.0), spawn_mirror_bacteria])
 	if immune_cell_count < immune_cell_level or randf() < 0.003 * immune_cell_level:
-		spawn_immune_cell()
+		immune_cell_count += 1
+		spawns_queue.append([timer + randf_range(0.5, 2.0), spawn_immune_cell])
 	if glucose_count < glucose_level or randf() < 0.003 * glucose_level:
-		spawn_glucose()
+		glucose_count += 1
+		spawns_queue.append([timer + randf_range(0.5, 2.0), spawn_glucose])
 	if glycerol_count < glycerol_level or randf() < 0.003 * glycerol_level:
-		spawn_glycerol()
+		glycerol_count += 1
+		spawns_queue.append([timer + randf_range(0.5, 2.0), spawn_glycerol])
 	if c5a_count < c5a_level or randf() < 0.003 * c5a_level:
-		spawn_c5a()
-	if will_health > 0 and randf() < vaccine_effect * 0.15:
-		spawn_vaccine()
-
+		c5a_count += 1
+		spawns_queue.append([timer + randf_range(0.5, 2.0), spawn_c5a])
+	if vaccine_count < vaccine_level or randf() < vaccine_level * 0.01:
+		vaccine_count += 1
+		spawns_queue.append([timer + randf_range(0.5, 2.0), spawn_vaccine])
+		
 func generate_spawn_point(y):
 	var x_lim = BOUNDS_RECT.size.x - 1
 	var y_lim = BOUNDS_RECT.size.y - 1
@@ -154,32 +207,21 @@ func generate_spawn_point(y):
 		return Vector3(x_lim/2 * sign(n - y_lim), y, fmod(n, y_lim) - y_lim/2)
 
 func spawn_bacteria():
-	bacteria_count += 1
-	#await get_tree().create_timer(randf_range(0.5, 3)).timeout
 	add_child(Bacteria.instantiate(generate_spawn_point(0.5)))
 
 func spawn_mirror_bacteria():
-	mirror_bacteria_count += 1
-	#await get_tree().create_timer(randf_range(0.5, 3)).timeout
 	add_child(MirrorBacteria.instantiate(generate_spawn_point(0.5)))
 
 func spawn_immune_cell():
-	immune_cell_count += 1
-	#await get_tree().create_timer(randf_range(0.5, 3)).timeout
 	add_child(ImmuneCell.instantiate(generate_spawn_point(0.5)))
 
 func spawn_glucose():
-	glucose_count += 1
-	#await get_tree().create_timer(randf_range(0.5, 3)).timeout
 	add_child(Glucose.instantiate(generate_spawn_point(0.2)))
 
 func spawn_glycerol():
-	glycerol_count += 1
-	#await get_tree().create_timer(randf_range(0.5, 3)).timeout
 	add_child(Glycerol.instantiate(generate_spawn_point(0.2)))
 	
 func spawn_c5a():
-	c5a_count += 1
 	add_child(C5a.instantiate(generate_spawn_point(0.2)))
 
 func spawn_vaccine():

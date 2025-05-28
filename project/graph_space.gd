@@ -37,6 +37,14 @@ var log_ticks
 
 var x_scale_factor
 
+var debug: Control
+
+var timer = 0
+const min_y = 750
+const max_y = 60
+
+var open = false
+
 func _ready():
 	percent_ticks = range(10, 110, 10)
 	log_ticks = range(1, 11)
@@ -87,7 +95,6 @@ func _ready():
 	y_label_node2 = get_node("../YLabelControl2/YLabel")
 	full_ui = get_tree().get_current_scene().get_node("UI/GraphUI")
 
-	
 	var c: Control = Control.new()
 	c.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	c.size_flags_stretch_ratio = 0.5
@@ -116,11 +123,30 @@ func _ready():
 		axis.add_child(c)
 		c.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		c.size_flags_stretch_ratio = 0.5
+		
+	debug = get_tree().get_current_scene().get_node("UI/Debug")
 	
+	full_ui.position.y = min_y
 
 func _input(event):
-	if event.is_action_pressed("ui_graph_toggle"):
-		full_ui.visible = !full_ui.visible
+	if event.is_action_pressed("ui_graph_toggle") and (open or !debug.visible):
+		toggle_visible()
+
+func toggle_visible():
+		open = !open
+		timer = 0.01 * (1 if open else -1)
+
+func _process(delta):
+	if abs(timer) == 0.5:
+		return
+	if timer == 0:
+		return
+	if timer > 0:
+		timer += min(0.5 - timer, delta)
+		full_ui.position.y = max_y + (min_y - max_y) * 4 * (0.5 - timer)**2
+	else:
+		timer -= min(abs(timer + 0.5), delta)
+		full_ui.position.y = max_y + (min_y - max_y) * 4 * timer**2
 
 func _draw():
 	draw_line(Vector2.ZERO, Vector2(0, size.y), Color.BLACK, 2.0)
