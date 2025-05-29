@@ -126,7 +126,7 @@ func _process(delta):
 		(spawns_queue.pop_front()[1] as Callable).call()
 
 func calc_bacteria(num, immunity):
-	return int(num + 1 * num**0.9 * (1 - (bacteria_num + mirror_bacteria_num)/bacteria_limit)**3 * (1 - immunity/3) - (num**0.8 * 5) * immunity**2 * (max(log(num), 0)**3 / (max(log(bacteria_num), 0.1)**3 + max(log(mirror_bacteria_num), 0)**3)) ** 0.5)
+	return int(num + 1 * num**0.9 * (1 - (bacteria_num + mirror_bacteria_num)/bacteria_limit)**3 * (1 - immunity/3) - (num**0.8 * 5) * immunity**2 * (max(log(num), 0)**3 / (max(log(bacteria_num), 0.1)**3 + max(log(mirror_bacteria_num), 0)**3)) ** 0.5) - (num/5 if num < 5*10**2 else 0)
 	
 func update_sim():
 	if will_health > 0:
